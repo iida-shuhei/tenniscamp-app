@@ -25,8 +25,8 @@
                   <br />
                 </v-col>
               </div>
-              <v-avatar class="ma-3" size="125" tile v-if="scores == 1 || scores == 2">
-                <v-img :src="player.imagePath"></v-img>
+              <v-avatar class="ma-3" size="100" tile>
+                <v-img :src="userImage"></v-img>
               </v-avatar>
             </div>
             <v-card-actions>
@@ -48,6 +48,7 @@
 export default {
   data() {
     return {
+      userImage:require("@/assets/user.jpg"),
       players: [
         {
           imagePath: '',

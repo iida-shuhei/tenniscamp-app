@@ -26,7 +26,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col>
+          <!-- <v-col>
             <div class="uploadButton btn">
               画像を選択
               <input
@@ -42,13 +42,13 @@
             </div>
             <br />
             <br />
-          </v-col>
+          </v-col> -->
           <v-btn
             outlined
             color="indigo"
             class="ma-2 white--text register"
             @click="registerDoublesPlayer()"
-            :disabled="file === '' || doubles1 === ''  || doubles2 === ''"
+            :disabled="doubles1 === ''  || doubles2 === ''"
           >
             ダブルス選手登録
             <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
@@ -87,31 +87,36 @@ export default {
     };
   },
   methods: {
-    onFileChange(e) {
-      var files = e.target.files || e.dataTransfer.files[0];
-      this.file = files[0];
-    },
+    // onFileChange(e) {
+    //   var files = e.target.files || e.dataTransfer.files[0];
+    //   this.file = files[0];
+    // },
     registerDoublesPlayer() {
       this.isPush = true
-      let formData = new FormData();
-      let config = ""
-      const obj = {
-        doublesPlayerId1: this.doubles1,
-        doublesPlayerId2: this.doubles2,
-      }
-      if(this.file !== "") {
-        formData.append('file', this.file);
-        formData.append('obj',new Blob([JSON.stringify(obj)], {type : 'application/json'}))
-        config = {
-          headers: {
-            'content-type': 'multipart/form-data'
-          }
-        };
-      } else {
-        formData.append('obj',new Blob([JSON.stringify(obj)], {type : 'application/json'}))
-      }
+      // let formData = new FormData();
+      // let config = ""
+      // const obj = {
+      //   doublesPlayerId1: this.doubles1,
+      //   doublesPlayerId2: this.doubles2,
+      // }
+      // if(this.file !== "") {
+      //   formData.append('file', this.file);
+      //   formData.append('obj',new Blob([JSON.stringify(obj)], {type : 'application/json'}))
+      //   config = {
+      //     headers: {
+      //       'content-type': 'multipart/form-data'
+      //     }
+      //   };
+      // } else {
+      //   formData.append('obj',new Blob([JSON.stringify(obj)], {type : 'application/json'}))
+      // }
       Promise.resolve().then(() =>
-      this.$axios.post('/registerDoublesPlayer', formData, config)
+      this.$axios.post('/registerDoublesPlayer', {
+        doublesPlayerId1: this.doubles1,
+        doublesPlayerId2: this.doubles2
+      }
+      // , formData, config
+      )
         .then((res) => {
           if(res.data === '') {
             alert('登録しました')
