@@ -3,9 +3,9 @@
     <h2 class="title">選手一覧</h2>
     <v-container>
       <v-radio-group v-model="scores" row>
-        <v-radio label="総合" value="1"></v-radio>
-        <v-radio label="シングルス" value="2"></v-radio>
-        <v-radio label="ダブルス" value="3"></v-radio>
+        <v-radio label="シングルス" value="1"></v-radio>
+        <v-radio label="ダブルス" value="2"></v-radio>
+        <v-radio label="総合" value="3"></v-radio>
       </v-radio-group>
       <v-row dense>
         <v-col v-for="(player, i) in players" :key="i" cols="12">
@@ -25,7 +25,7 @@
                   <br />
                 </v-col>
               </div>
-              <v-avatar class="ma-3" size="125" tile>
+              <v-avatar class="ma-3" size="125" tile v-if="scores == 1 || scores == 2">
                 <v-img :src="player.imagePath"></v-img>
               </v-avatar>
             </div>
@@ -64,18 +64,18 @@ export default {
     };
   },
   created() {
-    this.players = this.$store.state.allPlayersList
+    this.players = this.$store.state.singlesPlayersList
   },
   watch: {
     scores() {
       if(this.scores === "1") {
-        this.players = this.$store.state.allPlayersList
-      }
-      if(this.scores === "2") {
         this.players = this.$store.state.singlesPlayersList
       }
-      if(this.scores === "3") {
+      if(this.scores === "2") {
         this.players = this.$store.state.doublesPlayersList
+      }
+      if(this.scores === "3") {
+        this.players = this.$store.state.allPlayersList
       }
     }
   },
