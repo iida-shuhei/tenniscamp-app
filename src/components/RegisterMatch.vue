@@ -189,12 +189,13 @@ export default {
       opponentMatchScore: this.score2,
       mustMission: this.mustMission,
       addMission: this.addMission
-    }).then((res) => {
-      if(res.data === null) {
-        alert('登録しました')
+    }).then(() => {
+      this.$router.push('/')
+    }).catch((err) => {
+      if (err.response.data.status === 500) {
+        alert(err.response.data.message)
       }
     })
-    this.$router.push('/')
    },
    registerDoubles() {
     this.$axios.post('/registerDoublesScore', {
@@ -204,13 +205,14 @@ export default {
     opponentMatchScore: this.score2,
     mustMission: this.mustMission,
     addMission: this.addMission
-    }).then((res) => {
-      if(res.data === null) {
-        alert('登録しました')
+    }).then(() => {
+      this.$router.push('/')
+    }).catch((err) => {
+      if (err.response.data.status === 500) {
+        alert(err.response.data.message)
       }
     })
-    this.$router.push('/')
-   }
+   },
   }
 };
 </script>
