@@ -3,7 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
-import firebase from 'firebase'
+import axios from "axios";
+// import firebase from "firebase";
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
