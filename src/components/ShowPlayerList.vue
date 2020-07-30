@@ -64,26 +64,18 @@ export default {
     };
   },
   created() {
-    this.$axios.get('/showPlayers').then((res) => {
-      this.players = res.data
-    })
+    this.players = this.$store.state.allPlayersList
   },
   watch: {
     scores() {
       if(this.scores === "1") {
-        this.$axios.get('/showPlayers').then((res) => {
-          this.players = res.data
-        })
+        this.players = this.$store.state.allPlayersList
       }
       if(this.scores === "2") {
-        this.$axios.get('/showSinglesPlayers').then((res) => {
-          this.players = res.data
-        })
+        this.players = this.$store.state.singlesPlayersList
       }
       if(this.scores === "3") {
-        this.$axios.get('/showDoublesPlayers').then((res) => {
-          this.players = res.data
-        })
+        this.players = this.$store.state.doublesPlayersList
       }
     }
   },

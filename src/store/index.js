@@ -6,7 +6,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     singlesPlayers:[],
-    doublesPlayers:[]
+    doublesPlayers:[],
+    allPlayersList:[],
+    singlesPlayersList:[],
+    doublesPlayersList:[],
   },
   mutations: {
     setSinglesPlayers(state,players) {
@@ -14,6 +17,15 @@ export default new Vuex.Store({
     },
     setDoublesPlayers(state,players) {
       state.doublesPlayers = players
+    },
+    setAllPlayersList(state,players) {
+      state.allPlayersList = players
+    },
+    setSinglesPlayersList(state,players) {
+      state.singlesPlayersList = players
+    },
+    setDoublesPlayersList(state,players) {
+      state.doublesPlayersList = players
     }
   },
   actions: {
@@ -22,7 +34,16 @@ export default new Vuex.Store({
     },
     setDoublesPlayers({commit},players) {
       commit("setDoublesPlayers",players)
-    }
+    },
+    setAllPlayersList({commit},players) {
+      commit("setAllPlayersList",players)
+    },
+    setSinglesPlayersList({commit},players) {
+      commit("setSinglesPlayersList",players)
+    },
+    setDoublesPlayersList({commit},players) {
+      commit("setDoublesPlayersList",players)
+    },
   },
   modules: {
   }

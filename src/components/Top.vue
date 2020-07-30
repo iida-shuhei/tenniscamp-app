@@ -30,9 +30,18 @@ export default {
       .then((res) => {
         this.setDoublesPlayers(res.data)
     })
+    this.$axios.get('/showPlayers').then((res) => {
+      this.setAllPlayersList(res.data)
+    })
+    this.$axios.get('/showSinglesPlayers').then((res) => {
+      this.setSinglesPlayersList(res.data)
+    })
+    this.$axios.get('/showDoublesPlayers').then((res) => {
+      this.setDoublesPlayersList(res.data)
+    })
   },
   methods: {
-    ...mapActions(["setSinglesPlayers","setDoublesPlayers"]),
+    ...mapActions(["setSinglesPlayers","setDoublesPlayers","setAllPlayersList","setSinglesPlayersList","setDoublesPlayersList"]),
   }
 };
 </script>
