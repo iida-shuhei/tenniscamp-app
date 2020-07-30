@@ -30,9 +30,9 @@ export default {
       .then((res) => {
         this.setDoublesPlayers(res.data)
     })
-    this.$axios.get('/showPlayers').then((res) => {
-      this.setAllPlayersList(res.data)
-    })
+    // this.$axios.get('/showPlayers').then((res) => {
+    //   this.setAllPlayersList(res.data)
+    // })
     this.$axios.get('/showSinglesPlayers').then((res) => {
       this.setSinglesPlayersList(res.data)
     })
