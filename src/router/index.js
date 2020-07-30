@@ -5,19 +5,41 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
   const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    {
+      path: '/',
+      name: 'Top',
+      component: () => import('../views/Top.vue')
+    },
+    {
+      path: '/registerMatch',
+      name: 'RegisterMatch',
+      component: () => import('../views/RegisterMatch.vue')
+    },
+    {
+      path: '/registerSinglesPlayer',
+      name: 'RegisterSinglesPlayer',
+      component: () => import('../views/RegisterSinglesPlayer.vue')
+    },
+    {
+      path: '/registerDoublesPlayer',
+      name: 'RegisterDoublesPlayer',
+      component: () => import('../views/RegisterDoublesPlayer.vue')
+    },
+    {
+      path: '/showMatchList',
+      name: 'ShowMatchList',
+      component: () => import('../views/ShowMatchList.vue')
+    },
+    {
+      path: '/editMatch',
+      name: 'EditMatch',
+      component: () => import('../views/EditMatch.vue')
+    },
+    {
+      path: '/showPlayerList',
+      name: 'ShowPlayerList',
+      component: () => import('../views/ShowPlayerList.vue')
+    },
 ]
 
 const router = new VueRouter({
