@@ -1,16 +1,11 @@
 <template>
   <div>
     <h2 class="title">試合結果登録</h2>
-    <v-alert
-      width="350px"
-      class="mx-auto mt-5"
-      v-if="err !== ''"
-      outlined
-      type="error"
-      style="white-space:pre-wrap;"
-      text
-      >{{ err }}</v-alert
-    >
+    <div v-if="err != ''" class="mx-auto box">
+      <div class="box2">
+        <h3 class="err">{{err}}</h3>
+      </div>
+    </div>
     <v-card class="mx-auto card" max-width="350">
       <v-container>
         <v-radio-group v-model="match" row>
@@ -66,22 +61,22 @@
             <v-select v-model="score2" :items="scores" label="相手のスコア" required></v-select>
           </v-col>
         </v-row>
-        <v-select 
-          v-model="mustMission" 
-          :items="missions" 
+        <v-select
+          v-model="mustMission"
+          :items="missions"
           item-text="name"
-          item-value="id" 
-          label="必須ミッション" 
-          required>
-        </v-select>
-        <v-select 
-          v-model="addMission" 
-          :items="missions" 
+          item-value="id"
+          label="必須ミッション"
+          required
+        ></v-select>
+        <v-select
+          v-model="addMission"
+          :items="missions"
           item-text="name"
-          item-value="id" 
-          label="追加ミッション" 
-          required>
-        </v-select>
+          item-value="id"
+          label="追加ミッション"
+          required
+        ></v-select>
         <v-row>
           <v-btn
             outlined
@@ -119,112 +114,126 @@
 export default {
   data() {
     return {
-      err:"",
+      err: "",
       name: "",
       singlesPlayers1: [
         {
           singlesPlayerId: "",
-          singlesPlayerName:""
-        }
+          singlesPlayerName: "",
+        },
       ],
       singlesPlayers2: [
         {
           singlesPlayerId: "",
-          singlesPlayerName:""
-        }
+          singlesPlayerName: "",
+        },
       ],
       doublesPlayers1: [
         {
           doublesPlayerId: "",
-          doublesPlayerName:""
-        }
+          doublesPlayerName: "",
+        },
       ],
       doublesPlayers2: [
         {
           doublesPlayerId: "",
-          doublesPlayerName:""
-        }
+          doublesPlayerName: "",
+        },
       ],
       missions: [
-       { 
-         id : 1,
-         name : "クリアならず"
-       },
-       { 
-         id : 2,
-         name : "１つクリア"
-       },
-       { 
-         id : 3,
-         name : "２つクリア"
-       },
+        {
+          id: 1,
+          name: "クリアならず",
+        },
+        {
+          id: 2,
+          name: "１つクリア",
+        },
+        {
+          id: 3,
+          name: "２つクリア",
+        },
       ],
-      scores:["0","1","2","3","4"],
+      scores: ["0", "1", "2", "3", "4"],
       match: "1",
       singles1: "",
       singles2: "",
       doubles1: "",
       doubles2: "",
-      score1:"0",
-      score2:"0",
+      score1: "0",
+      score2: "0",
       mustMission: 1,
       addMission: 1,
     };
   },
   watch: {
     singles1() {
-      this.$axios.get('/findPlayersExceptSinglesPlayerId', { params: { singlesPlayerId: this.singles1 } }).then((res) => {
-        this.singlesPlayers2 = res.data
-      })
+      this.$axios
+        .get("/findPlayersExceptSinglesPlayerId", {
+          params: { singlesPlayerId: this.singles1 },
+        })
+        .then((res) => {
+          this.singlesPlayers2 = res.data;
+        });
     },
     doubles1() {
-      this.$axios.get('/showPlayersExceptDoublesPlayerId', { params: { doublesPlayerId: this.doubles1 } }).then((res) => {
-        this.doublesPlayers2 = res.data
-      })
-    }
+      this.$axios
+        .get("/showPlayersExceptDoublesPlayerId", {
+          params: { doublesPlayerId: this.doubles1 },
+        })
+        .then((res) => {
+          this.doublesPlayers2 = res.data;
+        });
+    },
   },
   created() {
-    this.$axios.get('/showAllSinglesPlayers').then((res) => {
-      this.singlesPlayers1 = res.data
-    })
-    this.$axios.get('/showAllDoublesPlayer').then((res) => {
-      this.doublesPlayers1 = res.data
-    })
+    this.$axios.get("/showAllSinglesPlayers").then((res) => {
+      this.singlesPlayers1 = res.data;
+    });
+    this.$axios.get("/showAllDoublesPlayer").then((res) => {
+      this.doublesPlayers1 = res.data;
+    });
   },
   methods: {
-   registerSingles() {
-    this.$axios.post('/registerSinglesScore', {
-      singlesPlayerId: this.singles1,
-      opponentSinglesPlayerId: this.singles2,
-      myMatchScore: this.score1,
-      opponentMatchScore: this.score2,
-      mustMission: this.mustMission,
-      addMission: this.addMission
-    }).then(() => {
-      this.$router.push('/')
-    }).catch((err) => {
-      if (err.response.data.status === 500) {
-        this.err = err.response.data.message
-      }
-    })
-   },
-   registerDoubles() {
-    this.$axios.post('/registerDoublesScore', {
-    doublesPlayerId: this.doubles1,
-    opponentDoublesPlayerId: this.doubles2,
-    myMatchScore: this.score1,
-    opponentMatchScore: this.score2,
-    mustMission: this.mustMission,
-    addMission: this.addMission
-    }).then(() => {
-      this.$router.push('/')
-    }).catch((err) => {
-      if (err.response.data.status === 500) {
-        this.err = err.response.data.message
-      }
-    })
-   },
-  }
+    registerSingles() {
+      this.$axios
+        .post("/registerSinglesScore", {
+          singlesPlayerId: this.singles1,
+          opponentSinglesPlayerId: this.singles2,
+          myMatchScore: this.score1,
+          opponentMatchScore: this.score2,
+          mustMission: this.mustMission,
+          addMission: this.addMission,
+        })
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch((err) => {
+          if (err.response.data.status === 500) {
+            this.err = err.response.data.message;
+          }
+        });
+    },
+    registerDoubles() {
+      this.$axios
+        .post("/registerDoublesScore", {
+          doublesPlayerId: this.doubles1,
+          opponentDoublesPlayerId: this.doubles2,
+          myMatchScore: this.score1,
+          opponentMatchScore: this.score2,
+          mustMission: this.mustMission,
+          addMission: this.addMission,
+        })
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch((err) => {
+          if (err.response.data.status === 500) {
+            this.err = err.response.data.message;
+          }
+        });
+    },
+  },
 };
 </script>
 
@@ -276,5 +285,23 @@ export default {
   text-align: center;
   margin-top: 50px;
   margin-bottom: 50px;
+}
+.err {
+  text-align: center;
+  font-weight: bold;
+}
+.box2 {
+  width: 350px;
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  font-weight: bold;
+  color: red; /*文字色*/
+  background: #fff;
+  border: solid 3px red; /*線*/
+  border-radius: 10px; /*角の丸み*/
+}
+.box {
+  padding-left: 10px;
+  text-align: center;
 }
 </style>
