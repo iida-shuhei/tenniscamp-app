@@ -19,6 +19,7 @@
           item-text="singlesPlayerName"
           item-value="singlesPlayerId"
           label="自分の名前を選択"
+          no-data-text="データが登録されていません"
           required
         ></v-select>
         <v-select
@@ -28,6 +29,7 @@
           item-text="singlesPlayerName"
           item-value="singlesPlayerId"
           label="相手の名前を選択"
+          no-data-text="データが登録されていません"
           required
         ></v-select>
         <v-select
@@ -37,6 +39,7 @@
           item-text="doublesPlayerName"
           item-value="doublesPlayerId"
           label="自分たちを選択"
+          no-data-text="データが登録されていません"
           required
         ></v-select>
         <v-select
@@ -46,6 +49,7 @@
           item-text="doublesPlayerName"
           item-value="doublesPlayerId"
           label="相手を選択"
+          no-data-text="データが登録されていません"
           required
         ></v-select>
         <v-row>
@@ -62,11 +66,19 @@
           </v-col>
         </v-row>
         <v-select
-          v-model="mission"
+          v-model="mission1"
           :items="missions"
           item-text="name"
           item-value="id"
-          label="ミッション"
+          label="自分の達成ミッション"
+          required
+        ></v-select>
+        <v-select
+          v-model="mission2"
+          :items="missions"
+          item-text="name"
+          item-value="id"
+          label="相手の達成ミッション"
           required
         ></v-select>
         <small class="read">勝利7点,ミッション各1点</small>
@@ -159,7 +171,8 @@ export default {
       doubles2: "",
       score1: "0",
       score2: "0",
-      mission: 1,
+      mission1: 1,
+      mission2: 1,
       // addMission: 1,
     };
   },
@@ -199,7 +212,8 @@ export default {
           opponentSinglesPlayerId: this.singles2,
           myMatchScore: this.score1,
           opponentMatchScore: this.score2,
-          mission: this.mission,
+          mission1: this.mission1,
+          mission2: this.mission2,
           // addMission: this.addMission,
         })
         .then((res) => {
@@ -221,7 +235,8 @@ export default {
           opponentDoublesPlayerId: this.doubles2,
           myMatchScore: this.score1,
           opponentMatchScore: this.score2,
-          mission: this.mission,
+          mission1: this.mission1,
+          mission2: this.mission2,
           // addMission: this.addMission,
         })
         .then((res) => {
