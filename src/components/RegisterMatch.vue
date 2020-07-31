@@ -69,6 +69,7 @@
           label="ミッション"
           required
         ></v-select>
+        <small class="read">勝利7点,ミッション各1点</small>
         <v-row>
           <v-btn
             outlined
@@ -305,5 +306,9 @@ export default {
 .box {
   padding-left: 10px;
   text-align: center;
+}
+.read {
+  font-weight: bold;
+  color: #e98484;
 }
 </style>
