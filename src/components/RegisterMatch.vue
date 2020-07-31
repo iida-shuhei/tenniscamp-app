@@ -220,7 +220,7 @@ export default {
       this.$router.push('/')
     }).catch((err) => {
       if (err.response.data.status === 500) {
-        alert(err.response.data.message)
+        this.err = err.response.data.message
       }
     })
    },
