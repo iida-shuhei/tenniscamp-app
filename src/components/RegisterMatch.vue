@@ -1,6 +1,16 @@
 <template>
   <div>
     <h2 class="title">試合結果登録</h2>
+    <v-alert
+      width="350px"
+      class="mx-auto mt-5"
+      v-if="err !== ''"
+      outlined
+      type="error"
+      style="white-space:pre-wrap;"
+      text
+      >{{ err }}</v-alert
+    >
     <v-card class="mx-auto card" max-width="350">
       <v-container>
         <v-radio-group v-model="match" row>
@@ -109,6 +119,7 @@
 export default {
   data() {
     return {
+      err:"",
       name: "",
       singlesPlayers1: [
         {
@@ -193,7 +204,7 @@ export default {
       this.$router.push('/')
     }).catch((err) => {
       if (err.response.data.status === 500) {
-        alert(err.response.data.message)
+        this.err = err.response.data.message
       }
     })
    },
