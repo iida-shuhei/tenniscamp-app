@@ -62,19 +62,11 @@
           </v-col>
         </v-row>
         <v-select
-          v-model="mustMission"
+          v-model="mission"
           :items="missions"
           item-text="name"
           item-value="id"
-          label="必須ミッション"
-          required
-        ></v-select>
-        <v-select
-          v-model="addMission"
-          :items="missions"
-          item-text="name"
-          item-value="id"
-          label="追加ミッション"
+          label="ミッション"
           required
         ></v-select>
         <v-row>
@@ -142,16 +134,20 @@ export default {
       ],
       missions: [
         {
-          id: 1,
+          id: 0,
           name: "クリアならず",
         },
         {
-          id: 2,
+          id: 1,
           name: "１つクリア",
         },
         {
-          id: 3,
+          id: 2,
           name: "２つクリア",
+        },
+        {
+          id: 3,
+          name: "３つクリア",
         },
       ],
       scores: ["0", "1", "2", "3", "4"],
@@ -162,8 +158,8 @@ export default {
       doubles2: "",
       score1: "0",
       score2: "0",
-      mustMission: 1,
-      addMission: 1,
+      mission: 1,
+      // addMission: 1,
     };
   },
   watch: {
@@ -202,8 +198,8 @@ export default {
           opponentSinglesPlayerId: this.singles2,
           myMatchScore: this.score1,
           opponentMatchScore: this.score2,
-          mustMission: this.mustMission,
-          addMission: this.addMission,
+          mission: this.mission,
+          // addMission: this.addMission,
         })
         .then((res) => {
           if(res.data === 1) {
@@ -224,8 +220,8 @@ export default {
           opponentDoublesPlayerId: this.doubles2,
           myMatchScore: this.score1,
           opponentMatchScore: this.score2,
-          mustMission: this.mustMission,
-          addMission: this.addMission,
+          mission: this.mission,
+          // addMission: this.addMission,
         })
         .then((res) => {
           if(res.data === 1) {
