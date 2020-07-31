@@ -205,14 +205,17 @@ export default {
           mustMission: this.mustMission,
           addMission: this.addMission,
         })
-        .then(() => {
-          this.$router.push("/");
-        })
-        .catch((err) => {
-          if (err.response.data.status === 500) {
-            this.err = err.response.data.message;
+        .then((res) => {
+          if(res.data === 1) {
+            alert('どっちが勝ったん！？')
+          } else if(res.data === 2) {
+            alert('その試合は登録済み')
+          } else if(res.data === 3) {
+            alert('スコアが違うぞ')
+          } else {
+            this.$router.push("/");
           }
-        });
+        })
     },
     registerDoubles() {
       this.$axios
@@ -224,14 +227,17 @@ export default {
           mustMission: this.mustMission,
           addMission: this.addMission,
         })
-        .then(() => {
-          this.$router.push("/");
-        })
-        .catch((err) => {
-          if (err.response.data.status === 500) {
-            this.err = err.response.data.message;
+        .then((res) => {
+          if(res.data === 1) {
+            alert('どっちが勝ったん！？')
+          } else if(res.data === 2) {
+            alert('その試合は登録済み')
+          } else if(res.data === 3) {
+            alert('スコアが違うぞ')
+          } else {
+            this.$router.push("/");
           }
-        });
+      })
     },
   },
 };
