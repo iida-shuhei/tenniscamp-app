@@ -1,31 +1,42 @@
-[debug] [2020-12-15T03:45:54.173Z] ----------------------------------------------------------------------
-[debug] [2020-12-15T03:45:54.176Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
-[debug] [2020-12-15T03:45:54.176Z] CLI Version:   8.15.0
-[debug] [2020-12-15T03:45:54.176Z] Platform:      darwin
-[debug] [2020-12-15T03:45:54.176Z] Node Version:  v12.18.3
-[debug] [2020-12-15T03:45:54.178Z] Time:          Tue Dec 15 2020 12:45:54 GMT+0900 (GMT+09:00)
-[debug] [2020-12-15T03:45:54.178Z] ----------------------------------------------------------------------
-[debug] [2020-12-15T03:45:54.178Z] 
-[debug] [2020-12-15T03:45:54.194Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2020-12-15T03:45:54.194Z] > authorizing via signed-in user
-[debug] [2020-12-15T03:45:54.194Z] [iam] checking project tenniscamp-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
-[debug] [2020-12-15T03:45:54.197Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2020-12-15T03:45:54.198Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- <request body omitted>
-[debug] [2020-12-15T03:45:54.391Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","date":"Tue, 15 Dec 2020 03:45:54 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
-[debug] [2020-12-15T03:45:54.413Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/tenniscamp-app:testIamPermissions  
- {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2020-12-15T03:45:55.164Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Tue, 15 Dec 2020 03:45:55 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=640","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
-[debug] [2020-12-15T03:45:55.165Z] [iam] error while checking permissions, command may fail: FirebaseError: Authorization failed. This account is missing the following required permissions on project tenniscamp-app:
+[debug] [2020-12-15T03:51:42.752Z] ----------------------------------------------------------------------
+[debug] [2020-12-15T03:51:42.755Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2020-12-15T03:51:42.756Z] CLI Version:   8.19.0
+[debug] [2020-12-15T03:51:42.756Z] Platform:      darwin
+[debug] [2020-12-15T03:51:42.756Z] Node Version:  v12.18.3
+[debug] [2020-12-15T03:51:42.757Z] Time:          Tue Dec 15 2020 12:51:42 GMT+0900 (GMT+09:00)
+[debug] [2020-12-15T03:51:42.758Z] ----------------------------------------------------------------------
+[debug] [2020-12-15T03:51:42.758Z] 
+[debug] [2020-12-15T03:51:42.765Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-12-15T03:51:42.766Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
 
-  firebase.projects.get
-  firebasehosting.sites.update
-[debug] [2020-12-15T03:45:55.168Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/tenniscamp-app  
+You're about to initialize a Firebase project in this directory:
+
+  /Users/iidashuhei/Desktop/tenniscamp-app
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  .firebaserc already has a default project, using tenniscamp-app. 
+[debug] [2020-12-15T03:51:57.919Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/tenniscamp-app  
  
-[debug] [2020-12-15T03:45:55.675Z] <<< HTTP RESPONSE 403 {"vary":"X-Origin, Referer, Origin,Accept-Encoding","content-type":"application/json; charset=UTF-8","date":"Tue, 15 Dec 2020 03:45:55 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
-[debug] [2020-12-15T03:45:55.675Z] <<< HTTP RESPONSE BODY {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
-[debug] [2020-12-15T03:45:55.679Z] HTTP Error: 403, The caller does not have permission
-[debug] [2020-12-15T03:45:55.904Z] FirebaseError: HTTP Error: 403, The caller does not have permission
+[debug] [2020-12-15T03:51:58.561Z] <<< HTTP RESPONSE 403 {"vary":"X-Origin, Referer, Origin,Accept-Encoding","content-type":"application/json; charset=UTF-8","date":"Tue, 15 Dec 2020 03:51:58 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-12-15T03:51:58.562Z] <<< HTTP RESPONSE BODY {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2020-12-15T03:51:58.565Z] HTTP Error: 403, The caller does not have permission
+[debug] [2020-12-15T03:51:58.724Z] FirebaseError: HTTP Error: 403, The caller does not have permission
     at module.exports (/usr/local/lib/node_modules/firebase-tools/lib/responseToError.js:38:12)
     at Request._callback (/usr/local/lib/node_modules/firebase-tools/lib/api.js:41:35)
     at Request.self.callback (/usr/local/lib/node_modules/firebase-tools/node_modules/request/request.js:185:22)

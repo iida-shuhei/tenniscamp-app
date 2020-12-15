@@ -12,13 +12,13 @@ axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-  apiKey: "AIzaSyC8pmGh-zapCO8aD95LCBwsQHfXY7QgYmo",
-  authDomain: "tenniscamp-1d8dd.firebaseapp.com",
-  projectId: "tenniscamp-1d8dd",
-  storageBucket: "tenniscamp-1d8dd.appspot.com",
-  messagingSenderId: "957925085891",
-  appId: "1:957925085891:web:6257828afc6913d0e2c876",
-  measurementId: "G-RR852J0Y1Z",
+  apiKey: "AIzaSyD5uB6sYMQLzj6FYz1_OM2XnRqe6NgIVM0",
+  authDomain: "tenniscamp-5256b.firebaseapp.com",
+  projectId: "tenniscamp-5256b",
+  storageBucket: "tenniscamp-5256b.appspot.com",
+  messagingSenderId: "427307411962",
+  appId: "1:427307411962:web:2d50cee900ae344d8a5c43",
+  measurementId: "G-9RH59YY6P7",
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
