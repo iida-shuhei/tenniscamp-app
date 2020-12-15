@@ -44,11 +44,9 @@ export default {
           .post("/registerSinglesPlayer", {
             singlesPlayerName: this.name,
           })
-          .then((res) => {
-            if (res.data === "") {
-              alert("登録しました");
-              this.$router.push("/");
-            }
+          .then(() => {
+            alert("登録しました");
+            this.$router.push("/");
           })
       );
     },

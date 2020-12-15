@@ -76,11 +76,9 @@ export default {
             doublesPlayerId1: this.doubles1,
             doublesPlayerId2: this.doubles2,
           })
-          .then((res) => {
-            if (res.data === "") {
-              alert("登録しました");
-              this.$router.push("/");
-            }
+          .then(() => {
+            alert("登録しました");
+            this.$router.push("/");
           })
       );
     },
