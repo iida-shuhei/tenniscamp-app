@@ -216,10 +216,8 @@ export default {
           this.$router.push("/");
         })
         .catch((err) => {
-          console.log(err);
-          console.log(err.response.data.status);
           if (err.response.data.status === 500) {
-            this.err = "どちらが勝ったのかわからない、またはその試合結果は既に登録されています。";
+            this.err = "どちらが勝ったのかわからない、または\nその試合結果は既に登録されています。";
           }
         });
     },
@@ -238,7 +236,7 @@ export default {
         })
         .catch((err) => {
           if (err.response.data.status === 500) {
-            this.err = "どちらが勝ったのかわからない、またはその試合結果は既に登録されています。";
+            this.err = "どちらが勝ったのかわからない、または\nその試合結果は既に登録されています。";
           }
         });
     },
