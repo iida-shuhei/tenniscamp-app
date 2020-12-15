@@ -9,24 +9,13 @@
           </v-col>
         </v-row>
         <v-row>
-          <!-- <v-col>
-            <div class="uploadButton btn">
-              画像を選択
-              <input
-                type="file"
-                class="btn"
-                name="file"
-                ref="image"
-                @change="onFileChange"
-                onchange="uv.style.display='inline-block'; uv.value = this.value;"
-              />
-              <v-icon right dark>mdi-cloud-upload</v-icon>
-              <input type="text" id="uv" class="uploadValue" disabled />
-            </div>
-            <br />
-            <br />
-          </v-col> -->
-          <v-btn outlined color="indigo" class="ma-2 white--text register" @click="registerSinglesPlayer()" :disabled="name === ''">
+          <v-btn
+            outlined
+            color="indigo"
+            class="ma-2 white--text register"
+            @click="registerSinglesPlayer()"
+            :disabled="name === ''"
+          >
             シングルス選手登録
             <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
           </v-btn>
@@ -46,47 +35,24 @@ export default {
     return {
       name: "",
       file: "",
-      isPush: false,
     };
   },
   methods: {
-    // onFileChange(e) {
-    //   var files = e.target.files || e.dataTransfer.files[0];
-    //   this.file = files[0];
-    // },
     registerSinglesPlayer() {
-      this.isPush = true
-      // let formData = new FormData();
-      // let config = ""
-      // const obj = {
-      //   singlesPlayerName: this.name,
-      // }
-      // if(this.file !== "") {
-      //   formData.append('file', this.file);
-      //   formData.append('obj',new Blob([JSON.stringify(obj)], {type : 'application/json'}))
-      //   config = {
-      //     headers: {
-      //       'content-type': 'multipart/form-data'
-      //     }
-      //   };
-      // } else {
-      //   formData.append('obj',new Blob([JSON.stringify(obj)], {type : 'application/json'}))
-      // }
       Promise.resolve().then(() =>
-      this.$axios.post('/registerSinglesPlayer', {
-        singlesPlayerName: this.name,
-      }
-      // formData, config
-      )
-        .then((res) => {
-          if(res.data === '') {
-            alert('登録しました')
-            this.$router.push('/')
-          }
-        })
-      )
-    } 
-  }
+        this.$axios
+          .post("/registerSinglesPlayer", {
+            singlesPlayerName: this.name,
+          })
+          .then((res) => {
+            if (res.data === "") {
+              alert("登録しました");
+              this.$router.push("/");
+            }
+          })
+      );
+    },
+  },
 };
 </script>
 

@@ -51,7 +51,6 @@ export default {
   data() {
     return {
       file: "",
-      isPush: false,
       name: "",
       doubles1: "",
       doubles2: "",
@@ -71,7 +70,6 @@ export default {
   },
   methods: {
     registerDoublesPlayer() {
-      this.isPush = true;
       Promise.resolve().then(() =>
         this.$axios
           .post("/registerDoublesPlayer", {

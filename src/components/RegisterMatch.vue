@@ -1,10 +1,6 @@
 <template>
   <div>
     <h2 class="title">試合結果登録</h2>
-    <div v-if="err != ''" class="mx-auto box">
-      <h3 class="err">{{ err }}</h3>
-      <br />
-    </div>
     <v-card class="mx-auto card" max-width="350">
       <v-container>
         <v-radio-group v-model="match" row>
@@ -116,7 +112,6 @@
 export default {
   data() {
     return {
-      err: "",
       name: "",
       singlesPlayers1: [
         {
@@ -216,9 +211,7 @@ export default {
           this.$router.push("/");
         })
         .catch((err) => {
-          if (err.response.data.status === 500) {
-            this.err = err.response.data.message;
-          }
+          alert(err.response.data.message);
         });
     },
     registerDoubles() {
@@ -235,9 +228,7 @@ export default {
           this.$router.push("/");
         })
         .catch((err) => {
-          if (err.response.data.status === 500) {
-            this.err = err.response.data.message;
-          }
+          alert(err.response.data.message);
         });
     },
   },

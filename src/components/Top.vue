@@ -22,10 +22,10 @@
       </v-row>
       <v-row>
         <v-col>
-          <router-link :to="{ name: 'RegisterPersonal' }">団体戦登録</router-link>
+          <router-link :to="{ name: 'RegisterMatch' }">試合結果登録</router-link>
         </v-col>
         <v-col>
-          <router-link :to="{ name: 'RegisterMatch' }">試合結果登録</router-link>
+          <router-link :to="{ name: 'RegisterPersonal' }">団体戦登録</router-link>
         </v-col>
       </v-row>
     </v-container>
