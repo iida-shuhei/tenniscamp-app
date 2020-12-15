@@ -1,6 +1,10 @@
 <template>
   <div>
     <h2 class="title">試合結果登録</h2>
+    <div v-if="err != ''" class="mx-auto box">
+      <h3 class="err">{{ err }}</h3>
+      <br />
+    </div>
     <v-card class="mx-auto card" max-width="350">
       <v-container>
         <v-radio-group v-model="match" row>
@@ -112,6 +116,7 @@
 export default {
   data() {
     return {
+      err: "",
       name: "",
       singlesPlayers1: [
         {
@@ -210,8 +215,10 @@ export default {
         .then(() => {
           this.$router.push("/");
         })
-        .catch(() => {
-          alert("どちらが勝ったのかわからない、またはその試合結果は既に登録されています。");
+        .catch((err) => {
+          if (err.response.data.status === 500) {
+            this.err = "どちらが勝ったのかわからない、またはその試合結果は既に登録されています。";
+          }
         });
     },
     registerDoubles() {
@@ -227,8 +234,10 @@ export default {
         .then(() => {
           this.$router.push("/");
         })
-        .catch(() => {
-          alert("どちらが勝ったのかわからない、またはその試合結果は既に登録されています。");
+        .catch((err) => {
+          if (err.response.data.status === 500) {
+            this.err = "どちらが勝ったのかわからない、またはその試合結果は既に登録されています。";
+          }
         });
     },
   },
