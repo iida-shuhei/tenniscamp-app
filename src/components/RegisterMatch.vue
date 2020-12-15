@@ -216,7 +216,8 @@ export default {
           this.$router.push("/");
         })
         .catch((err) => {
-          console.log(err.status);
+          console.log(err);
+          console.log(err.response.data.status);
           if (err.response.data.status === 500) {
             this.err = "どちらが勝ったのかわからない、またはその試合結果は既に登録されています。";
           }
