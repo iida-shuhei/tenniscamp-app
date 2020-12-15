@@ -2,8 +2,8 @@
   <div>
     <h2 class="title">試合結果登録</h2>
     <div v-if="err != ''" class="mx-auto box">
-      <small class="err">{{ err }}</small>
-      <br />
+      <small class="err" style="white-space:pre-wrap;">{{ err }}</small>
+      <br /><br />
     </div>
     <v-card class="mx-auto card" max-width="350">
       <v-container>
