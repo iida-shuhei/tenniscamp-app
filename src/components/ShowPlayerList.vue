@@ -2,10 +2,23 @@
   <div>
     <h2 class="title">選手一覧</h2>
     <v-container>
-      <v-radio-group v-model="scores" row>
-        <v-radio label="シングルス" value="1"></v-radio>
-        <v-radio label="ダブルス" value="2"></v-radio>
-        <v-radio label="総合" value="3"></v-radio>
+      <v-radio-group v-model="scores">
+        <v-row>
+          <v-col>
+            <v-radio label="シングルス" value="1"></v-radio>
+          </v-col>
+          <v-col>
+            <v-radio label="ダブルス" value="2"></v-radio>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-radio label="団体戦" value="3"></v-radio>
+          </v-col>
+          <v-col>
+            <v-radio label="総合" value="4"></v-radio>
+          </v-col>
+        </v-row>
       </v-radio-group>
       <v-row dense>
         <v-col v-for="(player, i) in players" :key="i" cols="12">
@@ -15,12 +28,9 @@
                 <v-card-title v-text="player.playerName"></v-card-title>
                 <v-col>
                   勝ち :
-                  <span v-text="player.totalWin"></span>回
-                  <br />負け :
-                  <span v-text="player.totalLose"></span>回
-                  <br />ミッション数 :
-                  <span v-text="player.totalMission"></span>個
-                  <br />現在の得点 :
+                  <span v-text="player.totalWin"></span>回 <br />負け :
+                  <span v-text="player.totalLose"></span>回 <br />ミッション数 :
+                  <span v-text="player.totalMission"></span>個 <br />現在の得点 :
                   <span v-text="player.totalScore"></span>点
                   <br />
                 </v-col>
@@ -33,7 +43,19 @@
               現在の順位 :
               <span v-text="player.ranking"></span>位
             </v-card-actions>
-
+            <v-card-actions v-if="scores === '1'">
+              <v-btn color="error" @click="confirmDelete(player)">この選手を削除</v-btn>
+            </v-card-actions>
+            <v-card-actions v-if="scores === '2'">
+              <v-btn color="error" @click="confirmDoublesDelete(player)"
+                >このダブルスペアを削除</v-btn
+              >
+            </v-card-actions>
+            <v-card-actions v-if="scores === '3'">
+              <v-btn color="error" @click="confirmTeamDelete(player)"
+                >この選手の団体戦結果を削除</v-btn
+              >
+            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -48,37 +70,89 @@
 export default {
   data() {
     return {
-      userImage:require("@/assets/user.jpg"),
+      userImage: require("@/assets/user.jpg"),
       players: [
         {
-          imagePath: '',
-          playerName: '',
-          totalWin: '',
-          totalLose: '',
-          totalMission: '',
-          totalScore: '',
-          ranking: '',
+          imagePath: "",
+          playerName: "",
+          totalWin: "",
+          totalLose: "",
+          totalMission: "",
+          totalScore: "",
+          ranking: "",
           show: false,
-        }
+        },
       ],
-      scores:"1"
+      scores: "1",
     };
   },
   created() {
-    this.players = this.$store.state.singlesPlayersList
+    this.players = this.$store.state.singlesPlayersList;
   },
   watch: {
     scores() {
-      if(this.scores === "1") {
-        this.players = this.$store.state.singlesPlayersList
+      if (this.scores === "1") {
+        this.players = this.$store.state.singlesPlayersList;
       }
-      if(this.scores === "2") {
-        this.players = this.$store.state.doublesPlayersList
+      if (this.scores === "2") {
+        this.players = this.$store.state.doublesPlayersList;
       }
-      if(this.scores === "3") {
-        this.players = this.$store.state.allPlayersList
+      if (this.scores === "3") {
+        this.players = this.$store.state.playersTeamResult;
       }
-    }
+      if (this.scores === "4") {
+        this.players = this.$store.state.allPlayersList;
+      }
+    },
+  },
+  methods: {
+    confirmDelete(player) {
+      var result = confirm(
+        player.playerName + "さんを削除しますか？削除すると試合結果も含め、すべて削除されます。"
+      );
+      if (result) {
+        this.deletePlayer(player);
+      }
+    },
+    confirmTeamDelete(player) {
+      var result = confirm(player.playerName + "さんの団体戦結果を削除しますか？");
+      if (result) {
+        this.deleteTeamPlayer(player);
+      }
+    },
+    confirmDoublesDelete(player) {
+      var result = confirm(player.playerName + "ペアを削除しますか？");
+      if (result) {
+        this.deleteDoublesPlayer(player);
+      }
+    },
+    deletePlayer(player) {
+      this.$axios
+        .post("/deletePlayer", {
+          playerId: player.playerId,
+        })
+        .then(() => {
+          this.$router.push("/");
+        });
+    },
+    deleteTeamPlayer(player) {
+      this.$axios
+        .post("/deleteTeamPlayer", {
+          playerId: player.playerId,
+        })
+        .then(() => {
+          this.$router.push("/");
+        });
+    },
+    deleteDoublesPlayer(player) {
+      this.$axios
+        .post("/deleteDoublesPlayer", {
+          playerId: player.playerId,
+        })
+        .then(() => {
+          this.$router.push("/");
+        });
+    },
   },
 };
 </script>
@@ -87,7 +161,6 @@ export default {
 .title {
   margin-top: 50px;
   text-align: center;
-  margin-bottom: 30px;
   font-family: "Osaka", sans-serif;
 }
 .link {

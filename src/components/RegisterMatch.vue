@@ -2,9 +2,8 @@
   <div>
     <h2 class="title">試合結果登録</h2>
     <div v-if="err != ''" class="mx-auto box">
-      <div class="box2">
-        <h3 class="err">{{err}}</h3>
-      </div>
+      <h3 class="err">{{ err }}</h3>
+      <br />
     </div>
     <v-card class="mx-auto card" max-width="350">
       <v-container>
@@ -57,9 +56,7 @@
             <v-select v-model="score1" :items="scores" label="自分のスコア" required></v-select>
           </v-col>
           <v-col cols="1">
-            <div>
-              <br />−
-            </div>
+            <div><br />−</div>
           </v-col>
           <v-col>
             <v-select v-model="score2" :items="scores" label="相手のスコア" required></v-select>
@@ -89,7 +86,7 @@
             class="ma-2 white--text register"
             @click="registerSingles()"
             v-if="this.match == 1"
-            :disabled="singles1 === ''  || singles2 === ''"
+            :disabled="singles1 === '' || singles2 === ''"
           >
             シングルスの試合結果登録
             <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
@@ -100,7 +97,7 @@
             class="ma-2 white--text register"
             @click="registerDoubles()"
             v-if="this.match == 2"
-            :disabled="doubles1 === ''  || doubles2 === ''"
+            :disabled="doubles1 === '' || doubles2 === ''"
           >
             ダブルスの試合結果登録
             <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
@@ -214,19 +211,15 @@ export default {
           opponentMatchScore: this.score2,
           mission1: this.mission1,
           mission2: this.mission2,
-          // addMission: this.addMission,
         })
-        .then((res) => {
-          if(res.data === 1) {
-            alert('どっちが勝ったん！？')
-          } else if(res.data === 2) {
-            alert('その試合は登録済み')
-          } else if(res.data === 3) {
-            alert('スコアが違うぞ')
-          } else {
-            this.$router.push("/");
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch((err) => {
+          if (err.response.data.status === 500) {
+            this.err = err.response.data.message;
           }
-        })
+        });
     },
     registerDoubles() {
       this.$axios
@@ -237,19 +230,15 @@ export default {
           opponentMatchScore: this.score2,
           mission1: this.mission1,
           mission2: this.mission2,
-          // addMission: this.addMission,
         })
-        .then((res) => {
-          if(res.data === 1) {
-            alert('どっちが勝ったん！？')
-          } else if(res.data === 2) {
-            alert('その試合は登録済み')
-          } else if(res.data === 3) {
-            alert('スコアが違うぞ')
-          } else {
-            this.$router.push("/");
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch((err) => {
+          if (err.response.data.status === 500) {
+            this.err = err.response.data.message;
           }
-      })
+        });
     },
   },
 };
@@ -308,19 +297,10 @@ export default {
   text-align: center;
   font-weight: bold;
 }
-.box2 {
-  width: 350px;
-  padding: 0.5em 1em;
-  margin: 2em 0;
-  font-weight: bold;
-  color: red; /*文字色*/
-  background: #fff;
-  border: solid 3px red; /*線*/
-  border-radius: 10px; /*角の丸み*/
-}
 .box {
   padding-left: 10px;
   text-align: center;
+  color: red;
 }
 .read {
   font-weight: bold;

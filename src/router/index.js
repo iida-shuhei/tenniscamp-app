@@ -1,50 +1,50 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
-  const routes = [
+const routes = [
   {
-    path: '/',
-    name: 'Top',
-    component: () => import('../views/Top.vue')
+    path: "/",
+    name: "Top",
+    component: () => import("../views/Top.vue"),
   },
   {
-    path: '/registerMatch',
-    name: 'RegisterMatch',
-    component: () => import('../views/RegisterMatch.vue')
+    path: "/registerMatch",
+    name: "RegisterMatch",
+    component: () => import("../views/RegisterMatch.vue"),
   },
   {
-    path: '/registerSinglesPlayer',
-    name: 'RegisterSinglesPlayer',
-    component: () => import('../views/RegisterSinglesPlayer.vue')
+    path: "/registerPersonal",
+    name: "RegisterPersonal",
+    component: () => import("../views/RegisterPersonal.vue"),
   },
   {
-    path: '/registerDoublesPlayer',
-    name: 'RegisterDoublesPlayer',
-    component: () => import('../views/RegisterDoublesPlayer.vue')
+    path: "/registerSinglesPlayer",
+    name: "RegisterSinglesPlayer",
+    component: () => import("../views/RegisterSinglesPlayer.vue"),
   },
   {
-    path: '/showMatchList',
-    name: 'ShowMatchList',
-    component: () => import('../views/ShowMatchList.vue')
+    path: "/registerDoublesPlayer",
+    name: "RegisterDoublesPlayer",
+    component: () => import("../views/RegisterDoublesPlayer.vue"),
   },
   {
-    path: '/editMatch',
-    name: 'EditMatch',
-    component: () => import('../views/EditMatch.vue')
+    path: "/editMatch",
+    name: "EditMatch",
+    component: () => import("../views/EditMatch.vue"),
   },
   {
-    path: '/showPlayerList',
-    name: 'ShowPlayerList',
-    component: () => import('../views/ShowPlayerList.vue')
+    path: "/showPlayerList",
+    name: "ShowPlayerList",
+    component: () => import("../views/ShowPlayerList.vue"),
   },
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

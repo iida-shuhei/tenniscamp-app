@@ -9,7 +9,7 @@
               v-model="doubles1"
               :items="doublesPlayers1"
               item-text="singlesPlayerName"
-              item-value="singlesPlayerId" 
+              item-value="singlesPlayerId"
               label="名前を選択"
               no-data-text="全員登録されました"
               required
@@ -26,29 +26,12 @@
           </v-col>
         </v-row>
         <v-row>
-          <!-- <v-col>
-            <div class="uploadButton btn">
-              画像を選択
-              <input
-                type="file"
-                class="btn"
-                name="file"
-                ref="image"
-                @change="onFileChange"
-                onchange="uv.style.display='inline-block'; uv.value = this.value;"
-              />
-              <v-icon right dark>mdi-cloud-upload</v-icon>
-              <input type="text" id="uv" class="uploadValue" disabled />
-            </div>
-            <br />
-            <br />
-          </v-col> -->
           <v-btn
             outlined
             color="indigo"
             class="ma-2 white--text register"
             @click="registerDoublesPlayer()"
-            :disabled="doubles1 === ''  || doubles2 === ''"
+            :disabled="doubles1 === '' || doubles2 === ''"
           >
             ダブルス選手登録
             <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
@@ -75,69 +58,49 @@ export default {
       doublesPlayers1: [
         {
           singlesPlayerId: "",
-          singlesPlayerName:""
-        }
+          singlesPlayerName: "",
+        },
       ],
       doublesPlayers2: [
         {
           singlesPlayerId: "",
-          singlesPlayerName:""
-        }
+          singlesPlayerName: "",
+        },
       ],
     };
   },
   methods: {
-    // onFileChange(e) {
-    //   var files = e.target.files || e.dataTransfer.files[0];
-    //   this.file = files[0];
-    // },
     registerDoublesPlayer() {
-      this.isPush = true
-      // let formData = new FormData();
-      // let config = ""
-      // const obj = {
-      //   doublesPlayerId1: this.doubles1,
-      //   doublesPlayerId2: this.doubles2,
-      // }
-      // if(this.file !== "") {
-      //   formData.append('file', this.file);
-      //   formData.append('obj',new Blob([JSON.stringify(obj)], {type : 'application/json'}))
-      //   config = {
-      //     headers: {
-      //       'content-type': 'multipart/form-data'
-      //     }
-      //   };
-      // } else {
-      //   formData.append('obj',new Blob([JSON.stringify(obj)], {type : 'application/json'}))
-      // }
+      this.isPush = true;
       Promise.resolve().then(() =>
-      this.$axios.post('/registerDoublesPlayer', {
-        doublesPlayerId1: this.doubles1,
-        doublesPlayerId2: this.doubles2
-      }
-      // , formData, config
-      )
-        .then((res) => {
-          if(res.data === '') {
-            alert('登録しました')
-            this.$router.push('/')
-          }
-        })
-      )
+        this.$axios
+          .post("/registerDoublesPlayer", {
+            doublesPlayerId1: this.doubles1,
+            doublesPlayerId2: this.doubles2,
+          })
+          .then((res) => {
+            if (res.data === "") {
+              alert("登録しました");
+              this.$router.push("/");
+            }
+          })
+      );
     },
   },
   watch: {
     doubles1() {
-      this.$axios.get('/showPlayersExceptSinglesPlayerId', { params: { singlesPlayerId: this.doubles1 } }).then((res) => {
-        this.doublesPlayers2 = res.data
-      })
-    }
+      this.$axios
+        .get("/showPlayersExceptSinglesPlayerId", { params: { singlesPlayerId: this.doubles1 } })
+        .then((res) => {
+          this.doublesPlayers2 = res.data;
+        });
+    },
   },
   created() {
-    this.$axios.get('/showAllPlayers').then((res) => {
-      this.doublesPlayers1 = res.data
-    })
-  }
+    this.$axios.get("/showAllPlayers").then((res) => {
+      this.doublesPlayers1 = res.data;
+    });
+  },
 };
 </script>
 
