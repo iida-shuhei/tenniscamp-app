@@ -210,9 +210,8 @@ export default {
         .then(() => {
           this.$router.push("/");
         })
-        .catch((err) => {
-          console.log(err);
-          alert(err.response.data.message);
+        .catch(() => {
+          alert("どちらが勝ったのかわからない、またはその試合結果は既に登録されています。");
         });
     },
     registerDoubles() {
@@ -228,8 +227,8 @@ export default {
         .then(() => {
           this.$router.push("/");
         })
-        .catch((err) => {
-          alert(err.response.data.message);
+        .catch(() => {
+          alert("どちらが勝ったのかわからない、またはその試合結果は既に登録されています。");
         });
     },
   },
