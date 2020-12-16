@@ -4,23 +4,25 @@
       <Loading />
     </div>
     <div v-if="!loading">
-      <h2 class="title">試合結果一覧</h2>
-      <v-container>
-        <v-radio-group v-model="match" row>
-          <v-radio label="シングルス" value="1"></v-radio>
-          <v-radio label="ダブルス" value="2"></v-radio>
-        </v-radio-group>
+      <v-card class="mx-auto" max-width="350">
+        <h2 class="title">試合結果一覧</h2>
+        <v-col>
+          <v-radio-group v-model="match" row>
+            <v-radio label="シングルス" value="1"></v-radio>
+            <v-radio label="ダブルス" value="2"></v-radio>
+          </v-radio-group>
+        </v-col>
         <!-- シングルス結果 -->
         <v-row dense v-if="match == 1">
-          <v-col v-for="(result, i) in results" :key="i" cols="12">
-            <v-card>
+          <v-col v-for="(result, i) in results" :key="i" cols="12" class="col">
+            <v-card class="mx-auto" max-width="330">
               <div
                 class="d-flex flex-no-wrap justify-space-between"
                 v-if="result.opponentScore === 4"
               >
                 <v-col cols="4">
                   <v-card>
-                    <span>{{ transferSinglesOpponentName(result.opponentId) }}</span>
+                    <small>{{ transferSinglesOpponentName(result.opponentId) }}</small>
                   </v-card>
                 </v-col>
                 <v-col cols="1">
@@ -32,7 +34,7 @@
                 </v-col>
                 <v-col cols="4">
                   <v-card>
-                    <span>{{ transferSinglesPlayerName(result.playerId) }}</span>
+                    <small>{{ transferSinglesPlayerName(result.playerId) }}</small>
                   </v-card>
                 </v-col>
               </div>
@@ -42,7 +44,9 @@
               >
                 <v-col cols="4">
                   <v-card>
-                    <span>{{ transferSinglesPlayerName(result.playerId) }}</span>
+                    <small style="white-space:pre-wrap;">{{
+                      transferSinglesPlayerName(result.playerId)
+                    }}</small>
                   </v-card>
                 </v-col>
                 <v-col cols="1">
@@ -54,27 +58,31 @@
                 </v-col>
                 <v-col cols="4">
                   <v-card>
-                    <span>{{ transferSinglesOpponentName(result.opponentId) }}</span>
+                    <small>{{ transferSinglesOpponentName(result.opponentId) }}</small>
                   </v-card>
                 </v-col>
               </div>
-              <v-btn icon color="deep-orange" class="btn" @click="deleteSingles(result)">
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
+              <v-col>
+                <v-btn x-small class="btn" color="error" @click="deleteSingles(result)">
+                  このシングルス結果を削除する
+                </v-btn>
+              </v-col>
             </v-card>
           </v-col>
         </v-row>
         <!-- ダブルス結果 -->
         <v-row dense v-if="match == 2">
           <v-col v-for="(result, i) in results" :key="i" cols="12">
-            <v-card>
+            <v-card class="mx-auto" max-width="330">
               <div
                 class="d-flex flex-no-wrap justify-space-between"
                 v-if="result.opponentScore === 4"
               >
                 <v-col cols="4">
                   <v-card>
-                    <span>{{ transferDoublesOpponentName(result.opponentId) }}</span>
+                    <small style="white-space:pre-wrap;">{{
+                      transferDoublesOpponentName(result.opponentId)
+                    }}</small>
                   </v-card>
                 </v-col>
                 <v-col cols="1">
@@ -86,7 +94,9 @@
                 </v-col>
                 <v-col cols="4">
                   <v-card>
-                    <span>{{ transferDoublesPlayerName(result.playerId) }}</span>
+                    <small style="white-space:pre-wrap;">{{
+                      transferDoublesPlayerName(result.playerId)
+                    }}</small>
                   </v-card>
                 </v-col>
               </div>
@@ -96,7 +106,9 @@
               >
                 <v-col cols="4">
                   <v-card>
-                    <span>{{ transferDoublesPlayerName(result.playerId) }}</span>
+                    <small style="white-space:pre-wrap;">{{
+                      transferDoublesPlayerName(result.playerId)
+                    }}</small>
                   </v-card>
                 </v-col>
                 <v-col cols="1">
@@ -108,20 +120,24 @@
                 </v-col>
                 <v-col cols="4">
                   <v-card>
-                    <span>{{ transferDoublesOpponentName(result.opponentId) }}</span>
+                    <small style="white-space:pre-wrap;">{{
+                      transferDoublesOpponentName(result.opponentId)
+                    }}</small>
                   </v-card>
                 </v-col>
               </div>
-              <v-btn icon color="deep-orange" class="btn" @click="deleteDoubles(result)">
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
+              <v-col>
+                <v-btn x-small class="btn" color="error" @click="deleteDoubles(result)">
+                  このダブルス結果を削除する
+                </v-btn>
+              </v-col>
             </v-card>
           </v-col>
         </v-row>
-      </v-container>
-      <div class="link">
-        <router-link to="/">トップに戻る</router-link>
-      </div>
+        <div class="link">
+          <router-link to="/">トップに戻る</router-link>
+        </div>
+      </v-card>
     </div>
   </div>
 </template>
@@ -170,6 +186,7 @@ export default {
     });
   },
   methods: {
+    //シングルス
     transferSinglesPlayerName(playerId) {
       let player = this.$store.state.singlesPlayers.find(
         (player) => player.singlesPlayerId === playerId
@@ -182,17 +199,22 @@ export default {
       );
       return opponent.singlesPlayerName;
     },
+    //ダブルス
     transferDoublesPlayerName(playerId) {
+      let name = "";
       let player = this.$store.state.doublesPlayers.find(
         (player) => player.doublesPlayerId === playerId
       );
-      return player.doublesPlayerName;
+      name = player.doublesPlayerName.replace("・", "\n");
+      return name;
     },
     transferDoublesOpponentName(opponentId) {
+      let name = "";
       let opponent = this.$store.state.doublesPlayers.find(
         (opponent) => opponent.doublesPlayerId === opponentId
       );
-      return opponent.doublesPlayerName;
+      name = opponent.doublesPlayerName.replace("・", "\n");
+      return name;
     },
     deleteSingles(result) {
       let isOk = window.confirm("この試合結果を削除していいですか？");
@@ -261,14 +283,22 @@ export default {
   color: #ffffff;
 }
 .title {
-  margin-top: 30px;
+  margin-top: 20px;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   font-family: "Osaka", sans-serif;
 }
 .link {
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+.col {
+  padding-bottom: 0px;
+}
+.btn {
+  width: 100%;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 </style>

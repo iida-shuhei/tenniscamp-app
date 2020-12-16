@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2 class="title">団体戦結果登録</h2>
-    <v-card class="mx-auto card" max-width="350">
-      <v-container>
+    <v-card class="mx-auto" max-width="350">
+      <h2 class="title">団体戦結果登録</h2>
+      <v-col class="col">
         <v-select
           v-model="singles"
           :items="singlesPlayers"
@@ -38,11 +38,11 @@
           </v-btn>
           <br />
         </v-row>
-      </v-container>
+      </v-col>
+      <div class="link">
+        <router-link to="/">トップに戻る</router-link>
+      </div>
     </v-card>
-    <div class="link">
-      <router-link to="/">トップに戻る</router-link>
-    </div>
   </div>
 </template>
 
@@ -140,15 +140,15 @@ export default {
   width: 94%;
 }
 .title {
-  margin-top: 30px;
+  margin-top: 20px;
   text-align: center;
   margin-bottom: 20px;
   font-family: "Osaka", sans-serif;
 }
 .link {
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 0px;
+  padding-bottom: 20px;
 }
 .err {
   text-align: center;
@@ -165,11 +165,15 @@ export default {
   border-radius: 10px; /*角の丸み*/
 }
 .box {
-  padding-left: 10px;
+  margin-top: 20px;
+  padding-bottom: 20px;
   text-align: center;
 }
 .read {
   font-weight: bold;
   color: #e98484;
+}
+.col {
+  padding-top: 0px;
 }
 </style>

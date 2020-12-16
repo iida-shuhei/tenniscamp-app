@@ -1,18 +1,18 @@
 <template>
-  <div>
+  <v-card class="mx-auto" max-width="350">
     <h2 class="title">シングルス選手登録</h2>
-    <v-card class="mx-auto card" max-width="350">
-      <v-container>
-        <v-row>
-          <v-col>
-            <v-text-field v-model="name" label="名前" required></v-text-field>
-          </v-col>
-        </v-row>
+    <v-col class="col">
+      <v-row>
+        <v-col>
+          <v-text-field v-model="name" label="名前" required></v-text-field>
+        </v-col>
+      </v-row>
+      <v-col>
         <v-row>
           <v-btn
             outlined
             color="indigo"
-            class="ma-2 white--text register"
+            class="white--text register"
             @click="registerSinglesPlayer()"
             :disabled="name === ''"
           >
@@ -21,12 +21,12 @@
           </v-btn>
           <br />
         </v-row>
-      </v-container>
-    </v-card>
+      </v-col>
+    </v-col>
     <div class="link">
       <router-link to="/">トップに戻る</router-link>
     </div>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -90,16 +90,19 @@ export default {
   width: 100%;
 }
 .register {
-  width: 94%;
+  width: 100%;
 }
 .title {
-  margin-top: 50px;
+  margin-top: 20px;
   text-align: center;
-  margin-bottom: 50px;
   font-family: "Osaka", sans-serif;
 }
 .link {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 0px;
+  padding-bottom: 20px;
+}
+.col {
+  padding-top: 5px;
 }
 </style>

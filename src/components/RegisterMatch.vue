@@ -1,115 +1,113 @@
 <template>
-  <div>
+  <v-card class="mx-auto" max-width="350">
     <h2 class="title">試合結果登録</h2>
     <div v-if="err != ''" class="mx-auto box">
       <small class="err" style="white-space:pre-wrap;">{{ err }}</small>
       <br /><br />
     </div>
-    <v-card class="mx-auto card" max-width="350">
-      <v-container>
-        <v-radio-group v-model="match" row>
-          <v-radio label="シングルス" value="1"></v-radio>
-          <v-radio label="ダブルス" value="2"></v-radio>
-        </v-radio-group>
-        <v-select
+    <v-col>
+      <v-radio-group v-model="match" row>
+        <v-radio label="シングルス" value="1"></v-radio>
+        <v-radio label="ダブルス" value="2"></v-radio>
+      </v-radio-group>
+      <v-select
+        v-if="this.match == 1"
+        v-model="singles1"
+        :items="singlesPlayers1"
+        item-text="singlesPlayerName"
+        item-value="singlesPlayerId"
+        label="自分の名前を選択"
+        no-data-text="データが登録されていません"
+        required
+      ></v-select>
+      <v-select
+        v-if="this.match == 1"
+        v-model="singles2"
+        :items="singlesPlayers2"
+        item-text="singlesPlayerName"
+        item-value="singlesPlayerId"
+        label="相手の名前を選択"
+        no-data-text="データが登録されていません"
+        required
+      ></v-select>
+      <v-select
+        v-if="this.match == 2"
+        v-model="doubles1"
+        :items="doublesPlayers1"
+        item-text="doublesPlayerName"
+        item-value="doublesPlayerId"
+        label="自分たちを選択"
+        no-data-text="データが登録されていません"
+        required
+      ></v-select>
+      <v-select
+        v-if="this.match == 2"
+        v-model="doubles2"
+        :items="doublesPlayers2"
+        item-text="doublesPlayerName"
+        item-value="doublesPlayerId"
+        label="相手を選択"
+        no-data-text="データが登録されていません"
+        required
+      ></v-select>
+      <v-row>
+        <v-col>
+          <v-select v-model="score1" :items="scores" label="自分のスコア" required></v-select>
+        </v-col>
+        <v-col cols="1">
+          <div><br />−</div>
+        </v-col>
+        <v-col>
+          <v-select v-model="score2" :items="scores" label="相手のスコア" required></v-select>
+        </v-col>
+      </v-row>
+      <v-select
+        v-model="mission1"
+        :items="missions"
+        item-text="name"
+        item-value="id"
+        label="自分の達成ミッション"
+        required
+      ></v-select>
+      <v-select
+        v-model="mission2"
+        :items="missions"
+        item-text="name"
+        item-value="id"
+        label="相手の達成ミッション"
+        required
+      ></v-select>
+      <small class="read">勝利7点,ミッション各1点</small>
+      <v-row>
+        <v-btn
+          outlined
+          color="indigo"
+          class="ma-2 white--text register"
+          @click="registerSingles()"
           v-if="this.match == 1"
-          v-model="singles1"
-          :items="singlesPlayers1"
-          item-text="singlesPlayerName"
-          item-value="singlesPlayerId"
-          label="自分の名前を選択"
-          no-data-text="データが登録されていません"
-          required
-        ></v-select>
-        <v-select
-          v-if="this.match == 1"
-          v-model="singles2"
-          :items="singlesPlayers2"
-          item-text="singlesPlayerName"
-          item-value="singlesPlayerId"
-          label="相手の名前を選択"
-          no-data-text="データが登録されていません"
-          required
-        ></v-select>
-        <v-select
+          :disabled="singles1 === '' || singles2 === ''"
+        >
+          シングルスの試合結果登録
+          <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
+        </v-btn>
+        <v-btn
+          outlined
+          color="indigo"
+          class="ma-2 white--text register"
+          @click="registerDoubles()"
           v-if="this.match == 2"
-          v-model="doubles1"
-          :items="doublesPlayers1"
-          item-text="doublesPlayerName"
-          item-value="doublesPlayerId"
-          label="自分たちを選択"
-          no-data-text="データが登録されていません"
-          required
-        ></v-select>
-        <v-select
-          v-if="this.match == 2"
-          v-model="doubles2"
-          :items="doublesPlayers2"
-          item-text="doublesPlayerName"
-          item-value="doublesPlayerId"
-          label="相手を選択"
-          no-data-text="データが登録されていません"
-          required
-        ></v-select>
-        <v-row>
-          <v-col>
-            <v-select v-model="score1" :items="scores" label="自分のスコア" required></v-select>
-          </v-col>
-          <v-col cols="1">
-            <div><br />−</div>
-          </v-col>
-          <v-col>
-            <v-select v-model="score2" :items="scores" label="相手のスコア" required></v-select>
-          </v-col>
-        </v-row>
-        <v-select
-          v-model="mission1"
-          :items="missions"
-          item-text="name"
-          item-value="id"
-          label="自分の達成ミッション"
-          required
-        ></v-select>
-        <v-select
-          v-model="mission2"
-          :items="missions"
-          item-text="name"
-          item-value="id"
-          label="相手の達成ミッション"
-          required
-        ></v-select>
-        <small class="read">勝利7点,ミッション各1点</small>
-        <v-row>
-          <v-btn
-            outlined
-            color="indigo"
-            class="ma-2 white--text register"
-            @click="registerSingles()"
-            v-if="this.match == 1"
-            :disabled="singles1 === '' || singles2 === ''"
-          >
-            シングルスの試合結果登録
-            <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
-          </v-btn>
-          <v-btn
-            outlined
-            color="indigo"
-            class="ma-2 white--text register"
-            @click="registerDoubles()"
-            v-if="this.match == 2"
-            :disabled="doubles1 === '' || doubles2 === ''"
-          >
-            ダブルスの試合結果登録
-            <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
-          </v-btn>
-          <br />
-        </v-row>
-      </v-container>
-    </v-card>
-    <div class="link">
-      <router-link to="/">トップに戻る</router-link>
-    </div>
-  </div>
+          :disabled="doubles1 === '' || doubles2 === ''"
+        >
+          ダブルスの試合結果登録
+          <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
+        </v-btn>
+        <br />
+      </v-row>
+      <div class="link">
+        <router-link to="/">トップに戻る</router-link>
+      </div>
+    </v-col>
+  </v-card>
 </template>
 
 <script>
@@ -283,15 +281,15 @@ export default {
   width: 94%;
 }
 .title {
-  margin-top: 30px;
+  margin-top: 20px;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   font-family: "Osaka", sans-serif;
 }
 .link {
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 20px;
+  padding-bottom: 20px;
 }
 .err {
   text-align: center;

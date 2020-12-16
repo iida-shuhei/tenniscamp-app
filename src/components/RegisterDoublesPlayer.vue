@@ -1,49 +1,47 @@
 <template>
-  <div>
+  <v-card class="mx-auto" max-width="350">
     <h2 class="title">ダブルス選手登録</h2>
-    <v-card class="mx-auto card" max-width="350">
-      <v-container>
-        <v-row>
-          <v-col>
-            <v-select
-              v-model="doubles1"
-              :items="doublesPlayers1"
-              item-text="singlesPlayerName"
-              item-value="singlesPlayerId"
-              label="名前を選択"
-              no-data-text="全員登録されました"
-              required
-            ></v-select>
-            <v-select
-              v-model="doubles2"
-              :items="doublesPlayers2"
-              item-text="singlesPlayerName"
-              item-value="singlesPlayerId"
-              label="名前を選択"
-              no-data-text="全員登録されました"
-              required
-            ></v-select>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-btn
-            outlined
-            color="indigo"
-            class="ma-2 white--text register"
-            @click="registerDoublesPlayer()"
-            :disabled="doubles1 === '' || doubles2 === ''"
-          >
-            ダブルス選手登録
-            <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
-          </v-btn>
-          <br />
-        </v-row>
-      </v-container>
-    </v-card>
+    <v-col>
+      <v-row>
+        <v-col>
+          <v-select
+            v-model="doubles1"
+            :items="doublesPlayers1"
+            item-text="singlesPlayerName"
+            item-value="singlesPlayerId"
+            label="名前を選択"
+            no-data-text="全員登録されました"
+            required
+          ></v-select>
+          <v-select
+            v-model="doubles2"
+            :items="doublesPlayers2"
+            item-text="singlesPlayerName"
+            item-value="singlesPlayerId"
+            label="名前を選択"
+            no-data-text="全員登録されました"
+            required
+          ></v-select>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-btn
+          outlined
+          color="indigo"
+          class="ma-2 white--text register"
+          @click="registerDoublesPlayer()"
+          :disabled="doubles1 === '' || doubles2 === ''"
+        >
+          ダブルス選手登録
+          <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
+        </v-btn>
+        <br />
+      </v-row>
+    </v-col>
     <div class="link">
       <router-link to="/">トップに戻る</router-link>
     </div>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -139,13 +137,14 @@ export default {
   width: 94%;
 }
 .title {
-  margin-top: 50px;
+  margin-top: 20px;
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 0px;
   font-family: "Osaka", sans-serif;
 }
 .link {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 0px;
+  padding-bottom: 20px;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <h2 class="title">テニス合宿選手権</h2>
-    <v-img :src="this.img" class="img"></v-img>
-    <br />
+  <v-card class="mx-auto card" max-width="350">
+    <v-col>
+      <v-img :src="this.img" class="img"></v-img>
+    </v-col>
     <v-container class="container">
       <v-row>
         <v-col>
@@ -29,7 +29,7 @@
         </v-col>
       </v-row>
     </v-container>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -75,11 +75,11 @@ export default {
 
 <style scoped>
 .img {
-  margin-top: 50px;
+  /* margin-top: 50px; */
 }
 .title {
   text-align: center;
-  margin-top: 50px;
+  /* margin-top: 50px; */
   font-family: "ヒラギノ角ゴ StdN", "Hiragino Kaku Gothic StdN", sans-serif;
   letter-spacing: 0.2em;
 }
@@ -89,6 +89,7 @@ export default {
 }
 .card {
   padding-bottom: 10px;
+  margin-top: 20px;
 }
 .container {
   text-align: center;
