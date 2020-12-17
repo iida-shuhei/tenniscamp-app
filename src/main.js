@@ -6,6 +6,10 @@ import vuetify from "./plugins/vuetify";
 import axios from "axios";
 import firebase from "firebase";
 
+import "vue-loaders/dist/vue-loaders.css";
+import VueLoaders from "vue-loaders";
+Vue.use(VueLoaders);
+
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
 axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
