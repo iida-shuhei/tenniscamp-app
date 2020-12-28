@@ -54,26 +54,46 @@ export default {
   },
   created() {
     //シングルス選手のリスト
-    this.$axios.get("/singlesPlayer").then((res) => {
-      this.setSinglesPlayers(res.data);
-    });
-
-    //ダブルス選手リスト
-    this.$axios.get("/doublesPlayer").then((res) => {
-      this.setDoublesPlayers(res.data);
-    });
-
-    //団体戦の結果が詰まったリスト
-    this.$axios.get("/additionalScore").then((res) => {
-      this.setAdditionalScoreList(res.data);
-    });
-
-    //総合結果が詰まったリスト
-    this.$axios.get("/totalScore").then((res) => {
-      this.setTotalScoreList(res.data);
-    });
-
-    this.loading = false;
+    this.$axios
+      .get("/singlesPlayer")
+      .then((res) => {
+        this.setSinglesPlayers(res.data);
+      })
+      .then(() => {
+        Promise.resolve().then(() => {
+          //ダブルス選手リスト
+          this.$axios
+            .get("/doublesPlayer")
+            .then((res) => {
+              this.setDoublesPlayers(res.data);
+            })
+            .then(() => {
+              Promise.resolve().then(() => {
+                //団体戦の結果が詰まったリスト
+                this.$axios
+                  .get("/additionalScore")
+                  .then((res) => {
+                    this.setAdditionalScoreList(res.data);
+                  })
+                  .then(() => {
+                    Promise.resolve().then(() => {
+                      //総合結果が詰まったリスト
+                      this.$axios
+                        .get("/totalScore")
+                        .then((res) => {
+                          this.setTotalScoreList(res.data);
+                        })
+                        .then(() => {
+                          Promise.resolve().then(() => {
+                            this.loading = false;
+                          });
+                        });
+                    });
+                  });
+              });
+            });
+        });
+      });
   },
   methods: {
     ...mapActions([
