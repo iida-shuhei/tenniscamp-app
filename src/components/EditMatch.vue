@@ -166,13 +166,13 @@ export default {
     match() {
       this.loading = true;
       if (this.match === "1") {
-        this.$axios.get("/showSinglesResult").then((res) => {
+        this.$axios.get("/singlesScore").then((res) => {
           this.results = res.data;
           this.loading = false;
         });
       } else {
         this.loading = true;
-        this.$axios.get("/showDoublesResult").then((res) => {
+        this.$axios.get("/doublesScore").then((res) => {
           this.results = res.data;
           this.loading = false;
         });
@@ -180,7 +180,7 @@ export default {
     },
   },
   created() {
-    this.$axios.get("/showSinglesResult").then((res) => {
+    this.$axios.get("/singlesScore").then((res) => {
       this.results = res.data;
       this.loading = false;
     });
@@ -188,62 +188,50 @@ export default {
   methods: {
     //シングルス
     transferSinglesPlayerName(playerId) {
-      let player = this.$store.state.singlesPlayers.find(
-        (player) => player.singlesPlayerId === playerId
-      );
-      return player.singlesPlayerName;
+      let player = this.$store.state.singlesPlayers.find((player) => player.playerId === playerId);
+      return player.playerName;
     },
     transferSinglesOpponentName(opponentId) {
       let opponent = this.$store.state.singlesPlayers.find(
-        (opponent) => opponent.singlesPlayerId === opponentId
+        (opponent) => opponent.playerId === opponentId
       );
-      return opponent.singlesPlayerName;
+      return opponent.playerName;
     },
     //ダブルス
     transferDoublesPlayerName(playerId) {
       let name = "";
-      let player = this.$store.state.doublesPlayers.find(
-        (player) => player.doublesPlayerId === playerId
-      );
-      name = player.doublesPlayerName.replace("・", "\n");
+      let player = this.$store.state.doublesPlayers.find((player) => player.playerId === playerId);
+      name = player.playerName.replace("・", "\n");
       return name;
     },
     transferDoublesOpponentName(opponentId) {
       let name = "";
       let opponent = this.$store.state.doublesPlayers.find(
-        (opponent) => opponent.doublesPlayerId === opponentId
+        (opponent) => opponent.playerId === opponentId
       );
-      name = opponent.doublesPlayerName.replace("・", "\n");
+      name = opponent.playerName.replace("・", "\n");
       return name;
     },
     deleteSingles(result) {
       let isOk = window.confirm("この試合結果を削除していいですか？");
       if (isOk) {
-        this.$axios
-          .post("/deleteSinglesScore", {
-            playerId: result.playerId,
-            opponentPlayerId: result.opponentId,
-          })
-          .then((res) => {
-            if (res.data == "") {
-              this.$router.push("/");
-            }
-          });
+        const params = { playerId: result.playerId, opponentPlayerId: result.opponentId };
+        this.$axios.delete("/singlesScore", { data: params }).then((res) => {
+          if (res.data == "") {
+            this.$router.push("/");
+          }
+        });
       }
     },
     deleteDoubles(result) {
       let isOk = window.confirm("この試合結果を削除していいですか？");
       if (isOk) {
-        this.$axios
-          .post("/deleteDoublesScore", {
-            playerId: result.playerId,
-            opponentPlayerId: result.opponentId,
-          })
-          .then((res) => {
-            if (res.data == "") {
-              this.$router.push("/");
-            }
-          });
+        const params = { playerId: result.playerId, opponentPlayerId: result.opponentId };
+        this.$axios.delete("/doublesScore", { data: params }).then((res) => {
+          if (res.data == "") {
+            this.$router.push("/");
+          }
+        });
       }
     },
   },

@@ -39,16 +39,14 @@ export default {
   },
   methods: {
     registerSinglesPlayer() {
-      Promise.resolve().then(() =>
-        this.$axios
-          .post("/registerSinglesPlayer", {
-            singlesPlayerName: this.name,
-          })
-          .then(() => {
-            alert("登録しました");
-            this.$router.push("/");
-          })
-      );
+      this.$axios
+        .post("/singlesPlayer", {
+          name: this.name,
+        })
+        .then(() => {
+          alert("登録しました");
+          this.$router.push("/");
+        });
     },
   },
 };

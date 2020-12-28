@@ -68,30 +68,28 @@ export default {
   },
   methods: {
     registerDoublesPlayer() {
-      Promise.resolve().then(() =>
-        this.$axios
-          .post("/registerDoublesPlayer", {
-            doublesPlayerId1: this.doubles1,
-            doublesPlayerId2: this.doubles2,
-          })
-          .then(() => {
-            alert("登録しました");
-            this.$router.push("/");
-          })
-      );
+      this.$axios
+        .post("/doublesPlayer", {
+          doubles1: this.doubles1,
+          doubles2: this.doubles2,
+        })
+        .then(() => {
+          alert("登録しました");
+          this.$router.push("/");
+        });
     },
   },
   watch: {
     doubles1() {
-      this.$axios
-        .get("/showPlayersExceptSinglesPlayerId", { params: { singlesPlayerId: this.doubles1 } })
-        .then((res) => {
-          this.doublesPlayers2 = res.data;
-        });
+      this.doublesPlayers2 = this.doublesPlayers1.filter((player) => {
+        if (player.singlesPlayerId !== this.doubles1) {
+          return player;
+        }
+      });
     },
   },
   created() {
-    this.$axios.get("/showAllPlayers").then((res) => {
+    this.$axios.get("/singlesPlayer/noDoublesId").then((res) => {
       this.doublesPlayers1 = res.data;
     });
   },

@@ -46,96 +46,49 @@ export default {
   data() {
     return {
       img: require("@/assets/tennis.jpg"),
-      loading: true,
+      loading: false,
     };
   },
   components: {
     Loading,
   },
   created() {
-    this.loading = true;
-    //シングルスのリスト
-    this.$axios
-      .get("/showAllSinglesPlayers")
-      .then((res) => {
-        this.setSinglesPlayers(res.data);
-      })
-      .then(() => {
-        Promise.resolve().then(() => {
-          //ダブルスのリスト
-          this.$axios
-            .get("/showAllDoublesPlayer")
-            .then((res) => {
-              this.setDoublesPlayers(res.data);
-            })
-            .then(() => {
-              Promise.resolve().then(() => {
-                //総合結果が詰まったリスト
-                this.$axios
-                  .get("/showPlayers")
-                  .then((res) => {
-                    this.setAllPlayersList(res.data);
-                  })
-                  .then(() => {
-                    Promise.resolve().then(() => {
-                      //シングルスの結果が詰まったリスト
-                      this.$axios
-                        .get("/showSinglesPlayers")
-                        .then((res) => {
-                          this.setSinglesPlayersList(res.data);
-                        })
-                        .then(() => {
-                          Promise.resolve().then(() => {
-                            //ダブルスの結果が詰まったリスト
-                            this.$axios
-                              .get("/showDoublesPlayers")
-                              .then((res) => {
-                                this.setDoublesPlayersList(res.data);
-                              })
-                              .then(() => {
-                                Promise.resolve().then(() => {
-                                  //団体戦の結果が詰まったリスト
-                                  this.$axios
-                                    .get("/showPlayersTeamResult")
-                                    .then((res) => {
-                                      this.setPlayersTeamResult(res.data);
-                                    })
-                                    .then(() => {
-                                      Promise.resolve().then(() => {
-                                        this.loading = false;
-                                      });
-                                    });
-                                });
-                              });
-                          });
-                        });
-                    });
-                  });
-              });
-            });
-        });
-      });
+    //シングルス選手のリスト
+    this.$axios.get("/singlesPlayer").then((res) => {
+      this.setSinglesPlayers(res.data);
+    });
+
+    //ダブルス選手リスト
+    this.$axios.get("/doublesPlayer").then((res) => {
+      this.setDoublesPlayers(res.data);
+    });
+
+    //団体戦の結果が詰まったリスト
+    this.$axios.get("/additionalScore").then((res) => {
+      this.setAdditionalScoreList(res.data);
+    });
+
+    //総合結果が詰まったリスト
+    this.$axios.get("/totalScore").then((res) => {
+      this.setTotalScoreList(res.data);
+    });
+
+    this.loading = false;
   },
   methods: {
     ...mapActions([
       "setSinglesPlayers",
       "setDoublesPlayers",
-      "setAllPlayersList",
-      "setSinglesPlayersList",
-      "setDoublesPlayersList",
-      "setPlayersTeamResult",
+      "setAdditionalScoreList",
+      "setTotalScoreList",
     ]),
   },
 };
 </script>
 
 <style scoped>
-.img {
-  /* margin-top: 50px; */
-}
 .title {
   text-align: center;
-  /* margin-top: 50px; */
   font-family: "ヒラギノ角ゴ StdN", "Hiragino Kaku Gothic StdN", sans-serif;
   letter-spacing: 0.2em;
 }

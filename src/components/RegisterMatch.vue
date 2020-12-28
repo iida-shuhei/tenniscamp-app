@@ -12,53 +12,58 @@
       </v-radio-group>
       <v-select
         v-if="this.match == 1"
-        v-model="singles1"
-        :items="singlesPlayers1"
-        item-text="singlesPlayerName"
-        item-value="singlesPlayerId"
+        v-model="singlesPlayer"
+        :items="singlesPlayers"
+        item-text="playerName"
+        item-value="playerId"
         label="自分の名前を選択"
         no-data-text="データが登録されていません"
         required
       ></v-select>
       <v-select
         v-if="this.match == 1"
-        v-model="singles2"
-        :items="singlesPlayers2"
-        item-text="singlesPlayerName"
-        item-value="singlesPlayerId"
+        v-model="singlesOpponent"
+        :items="singlesOpponents"
+        item-text="playerName"
+        item-value="playerId"
         label="相手の名前を選択"
         no-data-text="データが登録されていません"
         required
       ></v-select>
       <v-select
         v-if="this.match == 2"
-        v-model="doubles1"
-        :items="doublesPlayers1"
-        item-text="doublesPlayerName"
-        item-value="doublesPlayerId"
+        v-model="doublesPlayer"
+        :items="doublesPlayers"
+        item-text="playerName"
+        item-value="playerId"
         label="自分たちを選択"
         no-data-text="データが登録されていません"
         required
       ></v-select>
       <v-select
         v-if="this.match == 2"
-        v-model="doubles2"
-        :items="doublesPlayers2"
-        item-text="doublesPlayerName"
-        item-value="doublesPlayerId"
+        v-model="doublesOpponent"
+        :items="doublesOpponents"
+        item-text="playerName"
+        item-value="playerId"
         label="相手を選択"
         no-data-text="データが登録されていません"
         required
       ></v-select>
       <v-row>
         <v-col>
-          <v-select v-model="score1" :items="scores" label="自分のスコア" required></v-select>
+          <v-select v-model="myScore" :items="scores" label="自分のスコア" required></v-select>
         </v-col>
         <v-col cols="1">
           <div><br />−</div>
         </v-col>
         <v-col>
-          <v-select v-model="score2" :items="scores" label="相手のスコア" required></v-select>
+          <v-select
+            v-model="opponentScore"
+            :items="scores"
+            label="相手のスコア"
+            required
+          ></v-select>
         </v-col>
       </v-row>
       <v-select
@@ -85,7 +90,7 @@
           class="ma-2 white--text register"
           @click="registerSingles()"
           v-if="this.match == 1"
-          :disabled="singles1 === '' || singles2 === ''"
+          :disabled="singlesPlayer === '' || singlesOpponent === ''"
         >
           シングルスの試合結果登録
           <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
@@ -96,7 +101,7 @@
           class="ma-2 white--text register"
           @click="registerDoubles()"
           v-if="this.match == 2"
-          :disabled="doubles1 === '' || doubles2 === ''"
+          :disabled="doublesPlayer === '' || doublesOpponent === ''"
         >
           ダブルスの試合結果登録
           <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
@@ -116,28 +121,28 @@ export default {
     return {
       err: "",
       name: "",
-      singlesPlayers1: [
+      singlesPlayers: [
         {
           singlesPlayerId: "",
           singlesPlayerName: "",
         },
       ],
-      singlesPlayers2: [
+      singlesOpponents: [
         {
-          singlesPlayerId: "",
-          singlesPlayerName: "",
+          singlesOpponentId: "",
+          singlesOpponentName: "",
         },
       ],
-      doublesPlayers1: [
+      doublesPlayers: [
         {
           doublesPlayerId: "",
           doublesPlayerName: "",
         },
       ],
-      doublesPlayers2: [
+      doublesOpponents: [
         {
-          doublesPlayerId: "",
-          doublesPlayerName: "",
+          doublesOpponentId: "",
+          doublesOpponentName: "",
         },
       ],
       missions: [
@@ -160,53 +165,44 @@ export default {
       ],
       scores: ["0", "1", "2", "3", "4"],
       match: "1",
-      singles1: "",
-      singles2: "",
-      doubles1: "",
-      doubles2: "",
-      score1: "0",
-      score2: "0",
+      singlesPlayer: "",
+      singlesOpponent: "",
+      doublesPlayer: "",
+      doublesOpponent: "",
+      myScore: "0",
+      opponentScore: "0",
       mission1: 1,
       mission2: 1,
-      // addMission: 1,
     };
   },
   watch: {
-    singles1() {
-      this.$axios
-        .get("/findPlayersExceptSinglesPlayerId", {
-          params: { singlesPlayerId: this.singles1 },
-        })
-        .then((res) => {
-          this.singlesPlayers2 = res.data;
-        });
+    singlesPlayer() {
+      this.singlesOpponents = this.singlesPlayers.filter((player) => {
+        if (player.playerId !== this.singlesPlayer) {
+          return player;
+        }
+      });
     },
-    doubles1() {
-      this.$axios
-        .get("/showPlayersExceptDoublesPlayerId", {
-          params: { doublesPlayerId: this.doubles1 },
-        })
-        .then((res) => {
-          this.doublesPlayers2 = res.data;
-        });
+    doublesPlayer() {
+      this.doublesOpponents = this.doublesPlayers.filter((player) => {
+        if (player.playerId !== this.doublesPlayer) {
+          return player;
+        }
+      });
     },
   },
   created() {
-    this.$axios.get("/showAllSinglesPlayers").then((res) => {
-      this.singlesPlayers1 = res.data;
-    });
-    this.$axios.get("/showAllDoublesPlayer").then((res) => {
-      this.doublesPlayers1 = res.data;
-    });
+    this.singlesPlayers = this.$store.state.singlesPlayers;
+    this.doublesPlayers = this.$store.state.doublesPlayers;
   },
   methods: {
     registerSingles() {
       this.$axios
-        .post("/registerSinglesScore", {
-          singlesPlayerId: this.singles1,
-          opponentSinglesPlayerId: this.singles2,
-          myMatchScore: this.score1,
-          opponentMatchScore: this.score2,
+        .post("/singlesScore", {
+          singlesPlayerId: this.singlesPlayer,
+          opponentSinglesPlayerId: this.singlesOpponent,
+          myMatchScore: this.myScore,
+          opponentMatchScore: this.opponentScore,
           mission1: this.mission1,
           mission2: this.mission2,
         })
@@ -221,11 +217,11 @@ export default {
     },
     registerDoubles() {
       this.$axios
-        .post("/registerDoublesScore", {
-          doublesPlayerId: this.doubles1,
-          opponentDoublesPlayerId: this.doubles2,
-          myMatchScore: this.score1,
-          opponentMatchScore: this.score2,
+        .post("/doublesScore", {
+          doublesPlayerId: this.doublesPlayer,
+          opponentDoublesPlayerId: this.doublesOpponent,
+          myMatchScore: this.myScore,
+          opponentMatchScore: this.opponentScore,
           mission1: this.mission1,
           mission2: this.mission2,
         })

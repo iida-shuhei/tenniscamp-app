@@ -7,16 +7,16 @@
 </template>
 
 <style scoped>
-  .text {
-    font-family: 'Bradley Hand',sans-serif;
-  }
-  footer {
-    width: 100%;
-    text-align: center;
-    background: white;
-    opacity: 0.8;
-    z-index: 1;
-    position: absolute;
-    bottom: 0;
-  }
+.text {
+  font-family: "Bradley Hand", sans-serif;
+}
+footer {
+  width: 100%;
+  text-align: center;
+  background: white;
+  opacity: 0.8;
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+}
 </style>

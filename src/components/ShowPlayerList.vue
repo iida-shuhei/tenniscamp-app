@@ -2,7 +2,7 @@
   <v-card class="mx-auto" max-width="350">
     <h2 class="title">選手一覧</h2>
     <v-col>
-      <v-radio-group v-model="scores">
+      <v-radio-group v-model="category">
         <v-row>
           <v-col>
             <v-radio label="シングルス" value="1"></v-radio>
@@ -44,18 +44,18 @@
             現在の順位 :
             <span v-text="player.ranking"></span>位
           </v-card-actions>
-          <v-card-actions v-if="scores === '1'">
-            <v-btn small class="btn" color="error" @click="confirmDelete(player)"
+          <v-card-actions v-if="category === '1'">
+            <v-btn small class="btn" color="error" @click="confirmSinglesDelete(player)"
               >この選手を削除</v-btn
             >
           </v-card-actions>
-          <v-card-actions v-if="scores === '2'">
+          <v-card-actions v-if="category === '2'">
             <v-btn small class="btn" color="error" @click="confirmDoublesDelete(player)"
               >このダブルスペアを削除</v-btn
             >
           </v-card-actions>
-          <v-card-actions v-if="scores === '3'">
-            <v-btn small class="btn" color="error" @click="confirmTeamDelete(player)"
+          <v-card-actions v-if="category === '3'">
+            <v-btn small class="btn" color="error" @click="confirmAdditionalScoreDelete(player)"
               >この選手の団体戦結果を削除</v-btn
             >
           </v-card-actions>
@@ -85,46 +85,46 @@ export default {
           show: false,
         },
       ],
-      scores: "1",
+      category: "1",
     };
   },
   created() {
-    this.players = this.$store.state.singlesPlayersList;
+    this.players = this.$store.state.singlesPlayers;
   },
   watch: {
-    scores() {
-      if (this.scores === "1") {
-        this.players = this.$store.state.singlesPlayersList;
+    category() {
+      if (this.category === "1") {
+        this.players = this.$store.state.singlesPlayers;
       }
-      if (this.scores === "2") {
-        this.players = this.$store.state.doublesPlayersList;
+      if (this.category === "2") {
+        this.players = this.$store.state.doublesPlayers;
       }
-      if (this.scores === "3") {
-        this.players = this.$store.state.playersTeamResult;
+      if (this.category === "3") {
+        this.players = this.$store.state.additionalScoreList;
       }
-      if (this.scores === "4") {
-        this.players = this.$store.state.allPlayersList;
+      if (this.category === "4") {
+        this.players = this.$store.state.totalScoreList;
       }
     },
   },
   methods: {
-    confirmDelete(player) {
+    //シングルス結果削除
+    confirmSinglesDelete(player) {
       var result = confirm(
         player.playerName + "さんを削除しますか？削除すると試合結果も含め、すべて削除されます。"
       );
       if (result) {
-        this.deletePlayer(player);
+        this.deleteSinglesPlayer(player);
       }
     },
-    confirmTeamDelete(player) {
-      var result = confirm(
-        player.playerName +
-          "さんの団体戦結果を削除しますか？削除すると試合結果もすべて削除されます。"
-      );
-      if (result) {
-        this.deleteTeamPlayer(player);
-      }
+    deleteSinglesPlayer(player) {
+      const id = player.playerId;
+      this.$axios.delete("/singlesPlayer/" + id).then(() => {
+        this.$router.push("/");
+      });
     },
+
+    //ダブルス結果削除
     confirmDoublesDelete(player) {
       var result = confirm(
         player.playerName + "ペアを削除しますか？削除すると試合結果もすべて削除されます。"
@@ -133,32 +133,28 @@ export default {
         this.deleteDoublesPlayer(player);
       }
     },
-    deletePlayer(player) {
-      this.$axios
-        .post("/deletePlayer", {
-          playerId: player.playerId,
-        })
-        .then(() => {
-          this.$router.push("/");
-        });
-    },
-    deleteTeamPlayer(player) {
-      this.$axios
-        .post("/deleteTeamPlayer", {
-          playerId: player.playerId,
-        })
-        .then(() => {
-          this.$router.push("/");
-        });
-    },
     deleteDoublesPlayer(player) {
-      this.$axios
-        .post("/deleteDoublesPlayer", {
-          playerId: player.playerId,
-        })
-        .then(() => {
-          this.$router.push("/");
-        });
+      const id = player.playerId;
+      this.$axios.delete("/doublesPlayer/" + id).then(() => {
+        this.$router.push("/");
+      });
+    },
+
+    //団体戦結果削除
+    confirmAdditionalScoreDelete(player) {
+      var result = confirm(
+        player.playerName +
+          "さんの団体戦結果を削除しますか？削除すると試合結果もすべて削除されます。"
+      );
+      if (result) {
+        this.deleteAdditionalScore(player);
+      }
+    },
+    deleteAdditionalScore(player) {
+      const id = player.playerId;
+      this.$axios.delete("/additionalScore/" + id).then(() => {
+        this.$router.push("/");
+      });
     },
   },
 };

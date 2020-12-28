@@ -4,10 +4,10 @@
       <h2 class="title">団体戦結果登録</h2>
       <v-col class="col">
         <v-select
-          v-model="singles"
-          :items="singlesPlayers"
-          item-text="singlesPlayerName"
-          item-value="singlesPlayerId"
+          v-model="player"
+          :items="players"
+          item-text="playerName"
+          item-value="playerId"
           label="自分の名前を選択"
           no-data-text="データが登録されていません"
           required
@@ -31,7 +31,7 @@
             color="indigo"
             class="ma-2 white--text register"
             @click="registerPersonal()"
-            :disabled="singles === ''"
+            :disabled="player === ''"
           >
             団体戦結果登録
             <v-icon right dark>mdi-checkbox-marked-circle</v-icon>
@@ -50,10 +50,10 @@
 export default {
   data() {
     return {
-      singlesPlayers: [
+      players: [
         {
-          singlesPlayerId: "",
-          singlesPlayerName: "",
+          playerId: "",
+          playerName: "",
         },
       ],
       missions: [
@@ -76,20 +76,18 @@ export default {
       ],
       scores: ["0", "1", "2", "3", "4"],
       result: "1",
-      singles: "",
+      player: "",
       mission: 1,
     };
   },
   created() {
-    this.$axios.get("/showAllSinglesPlayers").then((res) => {
-      this.singlesPlayers = res.data;
-    });
+    this.players = this.$store.state.singlesPlayers;
   },
   methods: {
     registerPersonal() {
       this.$axios
-        .post("/registerAdditionalScore", {
-          playerId: this.singles,
+        .post("/additionalScore", {
+          playerId: this.player,
           result: this.result,
           mission: this.mission,
         })

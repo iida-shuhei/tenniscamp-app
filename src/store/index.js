@@ -8,10 +8,8 @@ export default new Vuex.Store({
   state: {
     singlesPlayers: [],
     doublesPlayers: [],
-    allPlayersList: [],
-    singlesPlayersList: [],
-    doublesPlayersList: [],
-    playersTeamResult: [],
+    additionalScoreList: [],
+    totalScoreList: [],
   },
   mutations: {
     setSinglesPlayers(state, players) {
@@ -20,17 +18,11 @@ export default new Vuex.Store({
     setDoublesPlayers(state, players) {
       state.doublesPlayers = players;
     },
-    setAllPlayersList(state, players) {
-      state.allPlayersList = players;
+    setAdditionalScoreList(state, players) {
+      state.additionalScoreList = players;
     },
-    setSinglesPlayersList(state, players) {
-      state.singlesPlayersList = players;
-    },
-    setDoublesPlayersList(state, players) {
-      state.doublesPlayersList = players;
-    },
-    setPlayersTeamResult(state, players) {
-      state.playersTeamResult = players;
+    setTotalScoreList(state, players) {
+      state.totalScoreList = players;
     },
   },
   actions: {
@@ -40,17 +32,11 @@ export default new Vuex.Store({
     setDoublesPlayers({ commit }, players) {
       commit("setDoublesPlayers", players);
     },
-    setAllPlayersList({ commit }, players) {
-      commit("setAllPlayersList", players);
+    setAdditionalScoreList({ commit }, players) {
+      commit("setAdditionalScoreList", players);
     },
-    setSinglesPlayersList({ commit }, players) {
-      commit("setSinglesPlayersList", players);
-    },
-    setDoublesPlayersList({ commit }, players) {
-      commit("setDoublesPlayersList", players);
-    },
-    setPlayersTeamResult({ commit }, players) {
-      commit("setPlayersTeamResult", players);
+    setTotalScoreList({ commit }, players) {
+      commit("setTotalScoreList", players);
     },
   },
   modules: {},
