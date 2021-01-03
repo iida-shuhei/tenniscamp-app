@@ -10,6 +10,7 @@ export default new Vuex.Store({
     doublesPlayers: [],
     additionalScoreList: [],
     totalScoreList: [],
+    missions: [],
   },
   mutations: {
     setSinglesPlayers(state, players) {
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     setTotalScoreList(state, players) {
       state.totalScoreList = players;
     },
+    setMissions(state, missions) {
+      state.missions = missions;
+    },
   },
   actions: {
     setSinglesPlayers({ commit }, players) {
@@ -37,6 +41,9 @@ export default new Vuex.Store({
     },
     setTotalScoreList({ commit }, players) {
       commit("setTotalScoreList", players);
+    },
+    setMissions({ commit }, missions) {
+      commit("setMissions", missions);
     },
   },
   modules: {},

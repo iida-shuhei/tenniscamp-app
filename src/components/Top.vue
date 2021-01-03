@@ -33,6 +33,14 @@
               <router-link :to="{ name: 'RegisterPersonal' }">団体戦登録</router-link>
             </v-col>
           </v-row>
+          <v-row>
+            <v-col>
+              <router-link :to="{ name: 'ShowMission' }">ミッション一覧</router-link>
+            </v-col>
+            <v-col>
+              <router-link :to="{ name: 'RegisterMission' }">ミッション登録</router-link>
+            </v-col>
+          </v-row>
         </v-container>
       </v-card>
     </div>
@@ -85,7 +93,17 @@ export default {
                         })
                         .then(() => {
                           Promise.resolve().then(() => {
-                            this.loading = false;
+                            //ミッション
+                            this.$axios
+                              .get("/mission")
+                              .then((res) => {
+                                this.setMissions(res.data);
+                              })
+                              .then(() => {
+                                Promise.resolve().then(() => {
+                                  this.loading = false;
+                                });
+                              });
                           });
                         });
                     });
@@ -101,6 +119,7 @@ export default {
       "setDoublesPlayers",
       "setAdditionalScoreList",
       "setTotalScoreList",
+      "setMissions",
     ]),
   },
 };

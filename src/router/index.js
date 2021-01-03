@@ -39,6 +39,21 @@ const routes = [
     name: "ShowPlayerList",
     component: () => import("../views/ShowPlayerList.vue"),
   },
+  {
+    path: "/registerMission",
+    name: "RegisterMission",
+    component: () => import("../views/RegisterMission.vue"),
+  },
+  {
+    path: "/showMission",
+    name: "ShowMission",
+    component: () => import("../views/ShowMission.vue"),
+  },
+  {
+    path: "/selectedMission",
+    name: "SelectedMission",
+    component: () => import("../views/SelectedMission.vue"),
+  },
 ];
 
 const router = new VueRouter({
