@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -50,9 +51,13 @@ export default {
     };
   },
   created() {
-    this.missions = this.$store.state.missions;
+    this.$axios.get("/mission").then((res) => {
+      this.missions = res.data;
+      this.setMissions(res.data);
+    });
   },
   methods: {
+    ...mapActions(["setMissions"]),
     toSelectedMission() {
       this.$router.push("/selectedMission");
     },

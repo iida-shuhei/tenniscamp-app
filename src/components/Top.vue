@@ -93,17 +93,7 @@ export default {
                         })
                         .then(() => {
                           Promise.resolve().then(() => {
-                            //ミッション
-                            this.$axios
-                              .get("/mission")
-                              .then((res) => {
-                                this.setMissions(res.data);
-                              })
-                              .then(() => {
-                                Promise.resolve().then(() => {
-                                  this.loading = false;
-                                });
-                              });
+                            this.loading = false;
                           });
                         });
                     });
@@ -119,7 +109,6 @@ export default {
       "setDoublesPlayers",
       "setAdditionalScoreList",
       "setTotalScoreList",
-      "setMissions",
     ]),
   },
 };
